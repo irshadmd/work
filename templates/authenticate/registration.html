@@ -1,0 +1,14 @@
+{% extends "authenticate/base.html" %}
+{% block body_block %}
+  <div class="container">
+    <div class="jumbotron">
+        <h1>Register Here</h1>
+        <form enctype="multipart/form-data" method="POST" action="add_user">
+          {% csrf_token %}
+          {{ user_form.as_p }}
+          <input type="submit" name="" value="Register">
+        </form>
+        <button type="button" name="login"><a href="login">Login Now!</a></button>
+    </div>
+  </div>
+{% endblock %}

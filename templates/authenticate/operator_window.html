@@ -1,0 +1,98 @@
+{% extends "authenticate/base.html" %}
+{% block body_block %}
+  <div class="container">
+    <div class="jumbotron">
+        <h1>Operator Window</h1>
+    </div>
+    <div class="op-box">
+        <div class="container">
+            <div class="row">
+              <form action="windowsubmit" method="post">
+                {% csrf_token %}
+                <div class="col-md-2">
+                    <div class="logoutbt">
+                        <button type="button" name="button"><a href="logout">Logout</a></button>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row1">
+                      <h2>TIME</h2>
+                      <h3>{{time}}</h3>
+                      <h2>DATE</h2>
+                      <h3>{{date}}</h3>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row2">
+                        <h2>OPERATOR NAME</h2>
+                        <h3>{{ name }}</h3>
+                        <h2>OPERATOR ID</h2>
+                        <h3>{{ id }}</h3>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row3">
+                        <h2>PRODUCT</h2>
+                        <h3>{{ product }}</h3>
+                        <h2>LINE NO .</h2>
+                        <h3>3</h3>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row4">
+                        <h2>OPERATOR CURRENT STATUS</h2>
+                        <select id="opcurrentstatus" name="opcurrentstatus">
+                        <option value="sewing">Sewing</option>
+                        <option value="helpping to other">Helping to Other</option>
+                        <option value="drinking water">Drinking Water</option>
+                        <option value="washroom">Washroom</option>
+                        <option value="personal">Personal</option>
+                        <option value="pressing">Pressing</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row5">
+                        <h2>OPERATION</h2>
+                        <select id="operation" name="operation">
+                        <option value="dart stitch">Dart Stitch</option>
+                        <option value="panel attach">Panel Attach</option>
+                        <option value="dart and panel pressing">Dart And Panel Pressing</option>
+                        <option value="centre back stitch">Centre Back Stitch</option>
+                        <option value="diamond stitch">Diamond Stitch</option>
+                        <option value="chest welt iron">Chest Welt Iron</option>
+                        <option value="chest welt attach">Chest Welt Attach</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="row6">
+                        <h2>MACHINE STATUS</h2>
+                        <button type="button" name="start">Start</button>
+                        <input type="submit" name="stop" >
+                    </div>
+                    <div class="row7">
+                        <h2>TICKET NO START</h2>
+                        <input type="number" step="1" max="" min="2000" value="2001" name="ticketnostart">
+                        <h2>TICKET NO END</h2>
+                        <input type="number" step="1" max="" min="1220" value="1220" name="ticketnoend">
+                    </div>
+                    <div class="row8">
+                        <h2>TICKET NO STITCHED</h2>
+                        <input type="number" step="1" max="" min="" value="1207" name="ticketnostitched">
+                        <h2>REWORK TICKET NO</h2>
+                        <input type="number" step="1" max="" min="" value="1208" name="reworkticketno">
+                    </div>
+                    <div class="row9">
+                        <h2>STITCHED PIECES</h2>
+                        <input type="number" step="1" max="" min="0" value="6" name="stitchedpieces">
+                        <h2>REWORK PIECES</h2>
+                        <input type="number" step="1" max="" min="0" value="1" name="reworkpieces">
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}

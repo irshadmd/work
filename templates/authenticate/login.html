@@ -1,0 +1,19 @@
+{% extends 'authenticate/base.html' %}
+{% block body_block %}
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Login here :</h1>
+      {{registerfirst}}
+      <form method="post" action="{% url 'authenticate:user_login' %}">
+                {% csrf_token %}
+                {# A more "HTML" way of creating the login form#}
+                <label for="operator_id">Operator Id:</label>
+                <input type="text" name="operator_id" placeholder="Operator Id">
+                <label for="password">Password:</label>
+                <input type="password" name="password" placeholder="Password">
+                <input type="submit" name="" value="Login">
+      </form>
+      <button type="button" name="register"><a href="register">Not Registered?Register here!</a></button>
+    </div>
+  </div>
+{% endblock %}
