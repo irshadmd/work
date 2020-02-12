@@ -29,6 +29,11 @@
   display: inline-block;
   border: 2px solid black;
 }
+.row2 input{
+  height: 40px;
+  color:green;
+  border: 2px solid black;
+}
 .row4 select,.row5 select{
   color: green;
   padding: 6px;

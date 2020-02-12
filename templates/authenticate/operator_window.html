@@ -14,20 +14,28 @@
                         <button type="button" name="button"><a href="logout">Logout</a></button>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <div class="row1">
                       <h2>TIME</h2>
-                      <h3>{{time}}</h3>
+                      <input type="text" name="optime" value='{{ time }}' readonly>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row1">
                       <h2>DATE</h2>
-                      <h3>{{date}}</h3>
+                      <input type="text" name="opdate" value='{{ date }}' readonly>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="row2">
                         <h2>OPERATOR NAME</h2>
-                        <h3>{{ name }}</h3>
+                        <input type="text" name="opname" value='{{ name }}' readonly>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row2">
                         <h2>OPERATOR ID</h2>
-                        <h3>{{ id }}</h3>
+                        <input type="text" name="opid" value='{{ id }}' readonly>
                     </div>
                 </div>
                 <div class="col-md-8">

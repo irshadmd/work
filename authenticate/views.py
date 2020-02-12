@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from authenticate.forms import UserForm
+from authenticate.forms import UserForm,windowForm
 from .models import UserProfileInfo,OperatorWindow
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
@@ -8,13 +8,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 import sqlite3
 import datetime
-
-global op_name,op_id,op_date,op_time,op_product
-op_name=""
-op_id=""
-op_date=""
-op_time=""
-op_product=""
 
 def index(request):
     return render(request,'authenticate/index.html')
@@ -76,9 +69,9 @@ def user_login(request):
                 cursor.execute(find_user,[(operator_id)])
                 result = cursor.fetchall()
                 for i in result:
-                    op_name=name=i[7]
-                    op_id=id=i[6]
-                    op_product=product=i[9]
+                    name=i[7]
+                    id=i[6]
+                    product=i[9]
                 hr = str(datetime.datetime.now().hour)
                 min = str(datetime.datetime.now().minute)
                 time=hr+':'+min
@@ -86,10 +79,7 @@ def user_login(request):
                 month = str(datetime.datetime.now().month)
                 day = str(datetime.datetime.now().day)
                 date=day+'/'+month+'/'+year
-                op_time=time
-                op_date=date
-                setdata(op_id,op_name,op_time,op_product,op_date)
-                print(op_name,op_id,op_product,op_time,op_date)
+                print(name,id,product,time,date)
                 return render(request, 'authenticate/operator_window.html', {'name':name,'id':id,'product':product,'time':time,'date':date})
             else:
                 register='You have to register than you can login'
@@ -109,32 +99,19 @@ def window(request):
     form=windowForm()
     return render(request,'authenticate/operator_window.html',{'form':form})
 
-def setdata(id,name,time,product,date):
-    op_id=id
-    op_name=name
-    op_product=product
-    op_time=time
-    op_date=date
-    print(op_name,op_id,op_product,op_time,op_date)
-
-def getdata():
-    return op_name,op_id,op_product,op_time,op_date
-
 def windowsubmit(request):
-    op_name,op_id,op_product,op_time,op_date=getdata()
-    print(op_name,op_id,op_product,op_time,op_date)
-    operator_id = op_id
-    operator_name = op_name
-    operation='operation'
-    start_time=op_time
+    operator_id =request.POST['opid']
+    operator_name =request.POST['opname']
+    operation=request.POST['operation']
+    start_time=request.POST['optime']
     hr = str(datetime.datetime.now().hour)
     min = str(datetime.datetime.now().minute)
     time=hr+':'+min
     stop_time=time
     duration=time
-    date=op_date
+    date=request.POST['opdate']
     machine_stop_time=time
-    machine_run_time=op_time
+    machine_run_time=request.POST['optime']
     machine_breakdown_time=time
     frequency_of_machine_stop=0
     ticket_no_start=request.POST['ticketnostart']
