@@ -10,4 +10,5 @@ urlpatterns=[
     url(r'operator_window',views.window),
     url(r'logout',views.logout),
     url(r'windowsubmit',views.windowsubmit),
+    url(r'operatorskillmatrix',views.operatorskillmatrix),
 ]

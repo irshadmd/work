@@ -14,6 +14,9 @@ class UserProfileInfo(models.Model):
     grade=models.CharField(max_length=1,default='')
     password = models.CharField(max_length=10,default='')
 
+    def __str__(self):
+        return self.operator_name
+
 class OperatorWindow(models.Model):
     operator_id = models.CharField(max_length=5,default='')
     operator_name = models.CharField(max_length=50,default='')
@@ -36,5 +39,15 @@ class OperatorWindow(models.Model):
     rework_ticket_no=models.IntegerField(default=0)
     rework_pieces=models.IntegerField(default=0)
 
-def __str__(self):
-  return self.operator_name
+    def __str__(self):
+        return self.operator_name
+
+class operator_skill_matrix(models.Model):
+    operator_id = models.CharField(max_length=5,default='')
+    operator_name = models.CharField(max_length=50,default='')
+    grade=models.CharField(max_length=1,default='')
+    skill_percentage=models.CharField(max_length=3,default='')
+    operation=models.CharField(max_length=100,default='')
+
+    def __str__(self):
+        return self.skill_percentage

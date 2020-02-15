@@ -132,3 +132,9 @@ def windowsubmit(request):
         ,rework_pieces=rework_pieces)
     window_info.save()
     return render(request,'authenticate/index.html')
+
+def operatorskillmatrix(request):
+    context={}
+    operator_list=UserProfileInfo.objects.all()
+    context['operator_list']=operator_list
+    return render(request,'authenticate/operator_skill_matrix.html',context)

@@ -1,0 +1,158 @@
+{% extends "authenticate/base.html" %}
+{% block body_block %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>OPERATOR SKILL MATRIX</h1>
+  </div>
+</div>
+  <!-- Example row of columns -->
+<div class="row">
+    <div class="col-md-6">
+      <table id="myTable1" class="table">
+        <thead>
+          <tr>
+            <th>Operator ID</th>
+            <th> </th>
+            {% for operator in operator_list %}
+              <th>{{ operator.operator_id }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th>Operator Name</th>
+            <th> </th>
+            {% for operator in operator_list %}
+              <th>{{ operator.operator_name }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th>Operator grade</th>
+            <th> </th>
+            {% for operator in operator_list %}
+              <th>{{ operator.grade }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <thead>
+          <tr>
+            <th>Operation</th>
+            <th>Operation complexity</th>
+            {% for operator in operator_list %}
+              <th> </th>
+            {% endfor %}
+            <th>No of operator per operation</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <th>dart stitch</th>
+              <td> </td>
+              {% for operator in operator_list %}
+                <td>
+                  {% if operator.operation == 'dart stitch' %}
+                    {{operator.skill_percentage}}
+                  {% else %}
+                    ""
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <th>panel attach</th>
+              <td> </td>
+              {% for operator in operator_list %}
+                <td>
+                  {% if operator.operation == 'panel attach' %}
+                    {{operator.skill_percentage}}
+                  {% else %}
+                    ""
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <th>dart and panel pressing</th>
+              <td> </td>
+              {% for operator in operator_list %}
+                <td>
+                  {% if operator.operation == 'dart and panel pressing' %}
+                    {{operator.skill_percentage}}
+                  {% else %}
+                    ""
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <th>centre back stitch</th>
+              <td> </td>
+              {% for operator in operator_list %}
+                <td>
+                  {% if operator.operation == 'centre back stitch' %}
+                    {{operator.skill_percentage}}
+                  {% else %}
+                    ""
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <th>diamond stitch</th>
+              <td> </td>
+              {% for operator in operator_list %}
+                <td>
+                  {% if operator.operation == 'diamond stitch' %}
+                    {{operator.skill_percentage}}
+                  {% else %}
+                    ""
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <th>chest welt iron</th>
+              <td> </td>
+              {% for operator in operator_list %}
+                <td>
+                  {% if operator.operation == 'chest welt iron' %}
+                    {{operator.skill_percentage}}
+                  {% else %}
+                    ""
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <th>chest welt attach</th>
+              <td> </td>
+              {% for operator in operator_list %}
+                <td>
+                  {% if operator.operation == 'chest welt attach' %}
+                    {{operator.skill_percentage}}
+                  {% else %}
+                    ""
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+            <tr>
+              <th>side seam</th>
+              <td> </td>
+              {% for operator in operator_list %}
+                <td>
+                  {% if operator.operation == 'side seam' %}
+                    {{operator.skill_percentage}}
+                  {% else %}
+                    ""
+                  {% endif %}
+                </td>
+              {% endfor %}
+            </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+{% endblock %}
