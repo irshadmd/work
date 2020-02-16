@@ -1,0 +1,26 @@
+{% extends "authenticate/base.html" %}
+{% block body_block %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>OPERATOR ATTENDENCE</h1>
+  </div>
+</div>
+<div class="container">
+
+  <form action="submitattendence" method="post">
+    {% csrf_token %}
+    {% for operator in operator_list %}
+      <div class="">
+          <h3>{{ operator.operator_id }} {{ operator.operator_name }} </h3>
+          <input type="radio" id="absent" name='{{ operator.operator_id }}' value="absent" required>
+          <label for="absent">Absent</label>
+          <input type="radio" id="present" name='{{ operator.operator_id }}' value="present" required>
+          <label for="present">Present</label
+      </div>
+    {% endfor %}
+    <br>
+    <input type="submit" name="submit" value="Submit">
+  </form>
+
+</div>
+{% endblock %}
