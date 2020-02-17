@@ -1,0 +1,24 @@
+{% extends "authenticate/base.html" %}
+{% block body_block %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>Take Leave</h1>
+    <h4>{{mess}}</h4>
+  </div>
+</div>
+<div class="container">
+  <form action="leavesubmit" method="post">
+    {% csrf_token %}
+      <div class="">
+          <label>Operator ID:</label>
+          <input type="number" name="operatorid" value="" min="001" required><br>
+          <label>From</label>
+          <input type="date" name="leavestart" value="" required><br>
+          <label>Till</label>
+          <input type="date" name="leaveend" value="" required>
+      </div>
+    <br>
+    <input type="submit" name="submit" value="Submit">
+  </form>
+</div>
+{% endblock %}

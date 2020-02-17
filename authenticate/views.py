@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from authenticate.forms import UserForm,windowForm
 from .models import UserProfileInfo,OperatorWindow
+from attendence.models import operator_attendence
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -8,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 import sqlite3
 import datetime
+from datetime import date
 
 def index(request):
     return render(request,'authenticate/index.html')
@@ -134,7 +136,8 @@ def windowsubmit(request):
     return render(request,'authenticate/index.html')
 
 def operatorskillmatrix(request):
-    context={}
     operator_list=UserProfileInfo.objects.all()
-    context['operator_list']=operator_list
-    return render(request,'authenticate/operator_skill_matrix.html',context)
+    operator_attendences=operator_attendence.objects.all()
+    cdate=str(date.today())
+    return render(request,'authenticate/operator_skill_matrix.html',{'operator_list':operator_list
+    ,'operator_attendences':operator_attendences,'cdate':cdate})

@@ -41,3 +41,31 @@ def submitattendence(request):
         return HttpResponse("Attendence submitted")
     else:
         return HttpResponse("Already submitted")
+
+def takeleave(request):
+    return render(request,'authenticate/takeleave.html')
+
+def leavesubmit(request):
+    id=request.POST['operatorid']
+    leavestart=request.POST['leavestart']
+    leaveend=request.POST['leaveend']
+    operators=operator_attendence.objects.all()
+    c=0
+    today = str(date.today())
+    for i in operators:
+        if(id==i.operator_id and today==str(i.date)):
+            if(i.leave=='on leave'):
+                mess="Already on leave"
+                return render(request,'authenticate/takeleave.html',{'mess':mess})
+            else:
+                c=1
+                i.attendence='absent'
+                i.leave='on leave'
+                i.leave_start=leavestart
+                i.leave_end=leaveend
+                i.save()
+    if(c==0):
+        mess="Enter valid Operator id"
+        return render(request,'authenticate/takeleave.html',{'mess':mess})
+    print(leavestart,leaveend)
+    return HttpResponse("Submited")

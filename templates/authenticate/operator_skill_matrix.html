@@ -51,104 +51,136 @@
               <th>dart stitch</th>
               <td> </td>
               {% for operator in operator_list %}
-                <td>
                   {% if operator.operation == 'dart stitch' %}
-                    {{operator.skill_percentage}}
+                    {% for attendence in operator_attendences %}
+                      {% if attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "absent" %}
+                        <td style="background-color:red; color:white;">{{operator.skill_percentage}}</td>
+                      {% elif attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "present" %}
+                        <td style="background-color:green; color:white;">{{operator.skill_percentage}}</td>
+                      {% endif %}
+                    {% endfor %}
                   {% else %}
-                    ""
+                    <td>""</td>
                   {% endif %}
-                </td>
               {% endfor %}
             </tr>
             <tr>
               <th>panel attach</th>
               <td> </td>
               {% for operator in operator_list %}
-                <td>
                   {% if operator.operation == 'panel attach' %}
-                    {{operator.skill_percentage}}
+                    {% for attendence in operator_attendences %}
+                      {% if attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "absent" %}
+                        <td style="background-color:red; color:white;">{{operator.skill_percentage}}</td>
+                      {% elif attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "present" %}
+                        <td style="background-color:green; color:white;">{{operator.skill_percentage}}</td>
+                      {% endif %}
+                    {% endfor %}
                   {% else %}
-                    ""
+                    <td>""</td>
                   {% endif %}
-                </td>
               {% endfor %}
             </tr>
             <tr>
               <th>dart and panel pressing</th>
               <td> </td>
               {% for operator in operator_list %}
-                <td>
                   {% if operator.operation == 'dart and panel pressing' %}
-                    {{operator.skill_percentage}}
+                    {% for attendence in operator_attendences %}
+                      {% if attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "absent" %}
+                        <td style="background-color:red; color:white;">{{operator.skill_percentage}}</td>
+                      {% elif attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "present" %}
+                        <td style="background-color:green; color:white;">{{operator.skill_percentage}}</td>
+                      {% endif %}
+                    {% endfor %}
                   {% else %}
-                    ""
+                    <td>""</td>
                   {% endif %}
-                </td>
               {% endfor %}
             </tr>
             <tr>
               <th>centre back stitch</th>
               <td> </td>
               {% for operator in operator_list %}
-                <td>
                   {% if operator.operation == 'centre back stitch' %}
-                    {{operator.skill_percentage}}
+                    {% for attendence in operator_attendences %}
+                      {% if attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "absent" %}
+                        <td style="background-color:red; color:white;">{{operator.skill_percentage}}</td>
+                      {% elif attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "present" %}
+                        <td style="background-color:green; color:white;">{{operator.skill_percentage}}</td>
+                      {% endif %}
+                    {% endfor %}
                   {% else %}
-                    ""
+                    <td>""</td>
                   {% endif %}
-                </td>
               {% endfor %}
             </tr>
             <tr>
               <th>diamond stitch</th>
               <td> </td>
               {% for operator in operator_list %}
-                <td>
                   {% if operator.operation == 'diamond stitch' %}
-                    {{operator.skill_percentage}}
+                    {% for attendence in operator_attendences %}
+                      {% if attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "absent" %}
+                        <td style="background-color:red; color:white;">{{operator.skill_percentage}}</td>
+                      {% elif attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "present" %}
+                        <td style="background-color:green; color:white;">{{operator.skill_percentage}}</td>
+                      {% endif %}
+                    {% endfor %}
                   {% else %}
-                    ""
+                    <td>""</td>
                   {% endif %}
-                </td>
               {% endfor %}
             </tr>
             <tr>
               <th>chest welt iron</th>
               <td> </td>
               {% for operator in operator_list %}
-                <td>
                   {% if operator.operation == 'chest welt iron' %}
-                    {{operator.skill_percentage}}
+                    {% for attendence in operator_attendences %}
+                      {% if attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "absent" %}
+                        <td style="background-color:red; color:white;">{{operator.skill_percentage}}</td>
+                      {% elif attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "present" %}
+                        <td style="background-color:green; color:white;">{{operator.skill_percentage}}</td>
+                      {% endif %}
+                    {% endfor %}
                   {% else %}
-                    ""
+                    <td>""</td>
                   {% endif %}
-                </td>
               {% endfor %}
             </tr>
             <tr>
               <th>chest welt attach</th>
               <td> </td>
               {% for operator in operator_list %}
-                <td>
                   {% if operator.operation == 'chest welt attach' %}
-                    {{operator.skill_percentage}}
+                    {% for attendence in operator_attendences %}
+                      {% if attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "absent" %}
+                        <td style="background-color:red; color:white;">{{operator.skill_percentage}}</td>
+                      {% elif attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "present" %}
+                        <td style="background-color:green; color:white;">{{operator.skill_percentage}}</td>
+                      {% endif %}
+                    {% endfor %}
                   {% else %}
-                    ""
+                    <td>""</td>
                   {% endif %}
-                </td>
               {% endfor %}
             </tr>
             <tr>
               <th>side seam</th>
               <td> </td>
               {% for operator in operator_list %}
-                <td>
                   {% if operator.operation == 'side seam' %}
-                    {{operator.skill_percentage}}
+                    {% for attendence in operator_attendences %}
+                      {% if attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "absent" %}
+                        <td style="background-color:red; color:white;">{{operator.skill_percentage}}</td>
+                      {% elif attendence.operator_id == operator.operator_id and attendence.date|slugify == cdate and attendence.attendence == "present" %}
+                        <td style="background-color:green; color:white;">{{operator.skill_percentage}}</td>
+                      {% endif %}
+                    {% endfor %}
                   {% else %}
-                    ""
+                    <td>""</td>
                   {% endif %}
-                </td>
               {% endfor %}
             </tr>
         </tbody>

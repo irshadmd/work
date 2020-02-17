@@ -62,3 +62,7 @@
   height: 40px;
   padding: 2%;
 }
+.absent{
+  color: red;
+  background-color: red !important;
+}

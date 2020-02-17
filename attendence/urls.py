@@ -6,4 +6,6 @@ app_name = 'attendence'
 urlpatterns=[
     url(r'^$',views.takeattendence),
     url(r'^submitattendence',views.submitattendence),
+    url(r'^takeleave',views.takeleave),
+    url(r'^leavesubmit',views.leavesubmit),
 ]
