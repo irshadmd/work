@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from authenticate.forms import UserForm,windowForm
 from authenticate.models import UserProfileInfo,OperatorWindow
-from attendence.models import operator_attendence
+from attendence.models import line1attendence,line2attendence,line3attendence,line4attendence,line5attendence
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -18,30 +18,134 @@ def special(request):
     return render(request,'authenticate/index.html')
 
 def takeattendence(request):
-    context={}
-    operator_list=UserProfileInfo.objects.all()
-    context['operator_list']=operator_list
-    return render(request,'authenticate/takeattendence.html',context)
+    if request.method=='POST' and 'linesubmit' in request.POST:
+        lineno=request.POST['lineno']
+        print('heklo')
+        print(lineno)
+        operator_list=UserProfileInfo.objects.filter(line_no=lineno)
+        print(operator_list)
+        return render(request,'authenticate/takeattendence.html',{'operator_list':operator_list,'line_no':lineno})
+    elif request.method=='POST' and 'attendencesubmit' in request.POST:
+        a=submitattendence(request)
+        print(a)
+        if a==2:
+            mess="Attendence submitted"
+            return render(request,'authenticate/takeattendence.html',{'mess':mess})
+        elif a==1:
+            mess="Already submitted"
+            return render(request,'authenticate/takeattendence.html',{'mess':mess})
+        else:
+            mess="Error Occured"
+            return render(request,'authenticate/takeattendence.html',{'mess':mess})
+
+    return render(request,'authenticate/takeattendence.html')
 
 def submitattendence(request):
-    operators=UserProfileInfo.objects.all()
-    attenddatescheck=operator_attendence.objects.all()
-    today = str(date.today())
-    c=0
-    for check in attenddatescheck:
-        if(str(check.date)==today):
-            c=1
-    if(c==0):
-        for i in operators:
-            attend=request.POST[i.operator_id]
-            operatorAttend=operator_attendence(operator_id=i.operator_id,operator_name=i.operator_name
-            ,attendence=attend)
-            operatorAttend.save()
-            print(attend)
-        return HttpResponse("Attendence submitted")
-    else:
-        return HttpResponse("Already submitted")
+    a=2
+    lineno=request.POST['lineno']
+    operators=UserProfileInfo.objects.filter(line_no=lineno)
+    print('hello',lineno)
+    if(int(lineno) == 1):
+        print('true')
+        attenddatescheck=line1attendence.objects.all()
+        today = str(date.today())
+        c=0
+        for check in attenddatescheck:
+            if(str(check.date)==today):
+                c=1
+        if(c==0):
+            print('inside')
+            for i in operators:
+                attend=request.POST[i.operator_id]
+                operatorAttend=line1attendence(operator_id=i.operator_id,operator_name=i.operator_name
+                ,attendence=attend)
+                operatorAttend.save()
+                print(attend)
+            return a
+        else:
+            a=1
+            return a
 
+    elif(int(lineno) == 2):
+        print('true')
+        attenddatescheck=line2attendence.objects.all()
+        today = str(date.today())
+        c=0
+        for check in attenddatescheck:
+            if(str(check.date)==today):
+                c=1
+        if(c==0):
+            print('inside')
+            for i in operators:
+                attend=request.POST[i.operator_id]
+                operatorAttend=line2attendence(operator_id=i.operator_id,operator_name=i.operator_name
+                ,attendence=attend)
+                operatorAttend.save()
+                print(attend)
+            return a
+        else:
+            a=1
+            return a
+    elif(int(lineno) == 3):
+        print('true')
+        attenddatescheck=line3attendence.objects.all()
+        today = str(date.today())
+        c=0
+        for check in attenddatescheck:
+            if(str(check.date)==today):
+                c=1
+        if(c==0):
+            print('inside')
+            for i in operators:
+                attend=request.POST[i.operator_id]
+                operatorAttend=line3attendence(operator_id=i.operator_id,operator_name=i.operator_name
+                ,attendence=attend)
+                operatorAttend.save()
+                print(attend)
+            return a
+        else:
+            a=1
+            return a
+    elif(int(lineno) == 4):
+        print('true')
+        attenddatescheck=line4attendence.objects.all()
+        today = str(date.today())
+        c=0
+        for check in attenddatescheck:
+            if(str(check.date)==today):
+                c=1
+        if(c==0):
+            print('inside')
+            for i in operators:
+                attend=request.POST[i.operator_id]
+                operatorAttend=line4attendence(operator_id=i.operator_id,operator_name=i.operator_name
+                ,attendence=attend)
+                operatorAttend.save()
+                print(attend)
+            return a
+        else:
+            a=1
+            return a
+    elif(int(lineno) == 5):
+        print('true')
+        attenddatescheck=line5attendence.objects.all()
+        today = str(date.today())
+        c=0
+        for check in attenddatescheck:
+            if(str(check.date)==today):
+                c=1
+        if(c==0):
+            print('inside')
+            for i in operators:
+                attend=request.POST[i.operator_id]
+                operatorAttend=line5attendence(operator_id=i.operator_id,operator_name=i.operator_name
+                ,attendence=attend)
+                operatorAttend.save()
+                print(attend)
+            return a
+        else:
+            a=1
+            return a
 def takeleave(request):
     return render(request,'authenticate/takeleave.html')
 
@@ -49,7 +153,7 @@ def leavesubmit(request):
     id=request.POST['operatorid']
     leavestart=request.POST['leavestart']
     leaveend=request.POST['leaveend']
-    operators=operator_attendence.objects.all()
+    operators=line1attendence.objects.all()
     c=0
     today = str(date.today())
     for i in operators:

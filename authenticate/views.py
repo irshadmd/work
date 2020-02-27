@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from authenticate.forms import UserForm,windowForm
 from .models import UserProfileInfo,OperatorWindow
-from attendence.models import operator_attendence
+from attendence.models import line1attendence,line2attendence,line3attendence,line4attendence,line5attendence
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -26,18 +26,28 @@ def register(request):
             print('true')
             operator_id=request.POST['operator_id']
             password=request.POST['password']
-            new_user = User.objects.create(username=operator_id,password=password)
-            new_user = user_form.save(commit=False)
-            new_user.set_password(password)
-            new_user.is_active = False
-            new_user.save()
-
-    user_form = UserForm()
-    return render(request,'authenticate/registration.html',
-                          {'user_form':user_form})
+            operators=UserProfileInfo.objects.all()
+            print(operator_id)
+            c=0
+            for i in operators:
+                if(i.operator_id==operator_id):
+                    c=1
+            if(c==1):
+                mess="UserId is Already used"
+                user_form = UserForm()
+                return render(request,'authenticate/registration.html',
+                                      {'user_form':user_form,'mess':mess})
+            else:
+                add_user(request)
+                return render(request,'authenticate/login.html')
+    else:
+        user_form = UserForm()
+        return render(request,'authenticate/registration.html',
+                            {'user_form':user_form})
 def add_user(request):
 	operator_name=request.POST['operator_name']
 	operator_id=request.POST['operator_id']
+	line_no=request.POST['line_no']
 	address=request.POST['address']
 	product_category=request.POST['product_category']
 	product_sub_category=request.POST['product_sub_category']
@@ -48,12 +58,11 @@ def add_user(request):
 	grade=request.POST['grade']
 	password=request.POST['password']
 
-	user_info=UserProfileInfo(operator_name=operator_name,operator_id=operator_id,address=address,product_category=product_category
+	user_info=UserProfileInfo(operator_name=operator_name,operator_id=operator_id,line_no=line_no,address=address,product_category=product_category
 		,product_sub_category=product_sub_category,operation=operation,operation_complexity=operation_complexity
 		,no_of_operation=no_of_operation,skill_percentage=skill_percentage,grade=grade,password=password)
 	user_info.save()
 
-	return render(request,'authenticate/login.html')
 
 def user_login(request):
     if request.method == 'POST':
@@ -137,7 +146,7 @@ def windowsubmit(request):
 
 def operatorskillmatrix(request):
     operator_list=UserProfileInfo.objects.all()
-    operator_attendences=operator_attendence.objects.all()
+    operator_attendences=line1attendence.objects.all()
     cdate=str(date.today())
     return render(request,'authenticate/operator_skill_matrix.html',{'operator_list':operator_list
     ,'operator_attendences':operator_attendences,'cdate':cdate})

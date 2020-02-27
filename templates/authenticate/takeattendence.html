@@ -3,12 +3,30 @@
 <div class="container">
   <div class="jumbotron">
     <h1>OPERATOR ATTENDENCE</h1>
+    <h3>{{mess}}</h3>
   </div>
 </div>
 <div class="container">
 
-  <form action="submitattendence" method="post">
+  <form action="takeattendence" method="post">
     {% csrf_token %}
+    <div class="">
+        <h2>SELECT LINE NO</h2>
+        <select id="selectlineno" name="lineno" required>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        </select>
+        <input type="submit" name="linesubmit" value="Submit Line no">
+    </div>
+  </form>
+  <form action="takeattendence" method="post">
+    {% csrf_token %}
+    <label>Line no</label>
+    <input type="text" name="lineno" value='{{ line_no }}' readonly><label> selected</label>
+    <br>
     {% for operator in operator_list %}
       <div class="">
           <h3>{{ operator.operator_id }} {{ operator.operator_name }} </h3>
@@ -19,7 +37,7 @@
       </div>
     {% endfor %}
     <br>
-    <input type="submit" name="submit" value="Submit">
+    <input type="submit" name="attendencesubmit" value="Submit Attendence">
   </form>
 
 </div>

@@ -3,7 +3,8 @@
   <div class="container">
     <div class="jumbotron">
         <h1>Register Here</h1>
-        <form enctype="multipart/form-data" method="POST" action="add_user">
+        {{mess}}
+        <form enctype="multipart/form-data" method="POST" action="register">
           {% csrf_token %}
           {{ user_form.as_p }}
           <input type="submit" name="" value="Register">

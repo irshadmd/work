@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 class UserProfileInfo(models.Model):
     operator_name = models.CharField(max_length=50,default='')
-    operator_id = models.CharField(max_length=5,default='')
+    operator_id = models.CharField(primary_key=True,max_length=5,default='',unique=True)
+    line_no=models.CharField(max_length=5,default='')
     address=models.CharField(max_length=100,default='')
     product_category=models.CharField(max_length=100,default='')
     product_sub_category=models.CharField(max_length=100,default='')
