@@ -30,10 +30,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for i in reports %}
-                        {% for j in reports %}
 
-                        {% endfor %}
+                    {% for i in reports %}
+                      <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{i.date|slugify}}</td>
+                        <td>{{i.operator_id|slugify}}</td>
+                        <td>{{i.operator_name|slugify}}</td>
+                        <td>{{i.attendence|slugify}}</td>
+                      </tr>
                     {% endfor %}
                   </tbody>
               </div>

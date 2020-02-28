@@ -18,27 +18,28 @@ def special(request):
     return render(request,'authenticate/index.html')
 
 def takeattendence(request):
+    today = str(date.today())
     if request.method=='POST' and 'linesubmit' in request.POST:
         lineno=request.POST['lineno']
         print('heklo')
         print(lineno)
         operator_list=UserProfileInfo.objects.filter(line_no=lineno)
         print(operator_list)
-        return render(request,'authenticate/takeattendence.html',{'operator_list':operator_list,'line_no':lineno})
+        return render(request,'authenticate/takeattendence.html',{'operator_list':operator_list,'line_no':lineno,'today':today})
     elif request.method=='POST' and 'attendencesubmit' in request.POST:
         a=submitattendence(request)
         print(a)
         if a==2:
             mess="Attendence submitted"
-            return render(request,'authenticate/takeattendence.html',{'mess':mess})
+            return render(request,'authenticate/takeattendence.html',{'mess':mess,'today':today})
         elif a==1:
             mess="Already submitted"
-            return render(request,'authenticate/takeattendence.html',{'mess':mess})
+            return render(request,'authenticate/takeattendence.html',{'mess':mess,'today':today})
         else:
             mess="Error Occured"
-            return render(request,'authenticate/takeattendence.html',{'mess':mess})
+            return render(request,'authenticate/takeattendence.html',{'mess':mess,'today':today})
 
-    return render(request,'authenticate/takeattendence.html')
+    return render(request,'authenticate/takeattendence.html',{'today':today})
 
 def submitattendence(request):
     a=2
@@ -179,4 +180,17 @@ def attendencereport(request):
         lineno=request.POST['lineno']
         if int(lineno)==1:
             reports=line1attendence.objects.all()
-    return render(request,'authenticate/attendencereport.html',{'reports':reports})
+            return render(request,'authenticate/attendencereport.html',{'reports':reports})
+        if int(lineno)==2:
+            reports=line2attendence.objects.all()
+            return render(request,'authenticate/attendencereport.html',{'reports':reports})
+        if int(lineno)==3:
+            reports=line3attendence.objects.all()
+            return render(request,'authenticate/attendencereport.html',{'reports':reports})
+        if int(lineno)==4:
+            reports=line4attendence.objects.all()
+            return render(request,'authenticate/attendencereport.html',{'reports':reports})
+        if int(lineno)==5:
+            reports=line5attendence.objects.all()
+            return render(request,'authenticate/attendencereport.html',{'reports':reports})
+    return render(request,'authenticate/attendencereport.html')
