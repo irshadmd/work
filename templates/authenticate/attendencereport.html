@@ -1,0 +1,45 @@
+{% extends "authenticate/base.html" %}
+{% block body_block %}
+  <div class="container">
+    <div class="jumbotron">
+        <h1>Attendence Report</h1>
+        <form enctype="multipart/form-data" method="POST" action="attendencereport">
+          {% csrf_token %}
+          <div class="">
+              <h2>SELECT LINE NO</h2>
+              <select id="selectlineno" name="lineno" required>
+              <option value=1>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+              <option value=4>4</option>
+              <option value=5>5</option>
+              </select>
+              <input type="submit" name="linesubmit" value="Submit Line no">
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md">
+                <table id="myTable1" class="table">
+                  <thead>
+                    <tr>
+                      <th>S.No</th>
+                      <th>Date</th>
+                      <th>Operator ID</th>
+                      <th>Operator Name</th>
+                      <th>Attendence</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for i in reports %}
+                        {% for j in reports %}
+
+                        {% endfor %}
+                    {% endfor %}
+                  </tbody>
+              </div>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+{% endblock %}

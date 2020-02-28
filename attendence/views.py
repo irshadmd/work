@@ -173,3 +173,10 @@ def leavesubmit(request):
         return render(request,'authenticate/takeleave.html',{'mess':mess})
     print(leavestart,leaveend)
     return HttpResponse("Submited")
+
+def attendencereport(request):
+    if request.method == 'POST':
+        lineno=request.POST['lineno']
+        if int(lineno)==1:
+            reports=line1attendence.objects.all()
+    return render(request,'authenticate/attendencereport.html',{'reports':reports})
