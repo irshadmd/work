@@ -7,7 +7,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-import sqlite3
 import datetime
 from datetime import date
 
@@ -68,36 +67,24 @@ def user_login(request):
     if request.method == 'POST':
         operator_id = request.POST.get('operator_id')
         password = request.POST.get('password')
-        try:
-            sqliteConnection = sqlite3.connect('db.sqlite3')
-            cursor = sqliteConnection.cursor()
-            print("Connected to SQLite")
-            find_user=("SELECT * FROM authenticate_userprofileinfo WHERE operator_id=? AND password=?")
-            cursor.execute(find_user,[(operator_id),(password)])
-            result = cursor.fetchall()
-            if result:
-                find_user=("SELECT * FROM authenticate_userprofileinfo WHERE operator_id=?")
-                cursor.execute(find_user,[(operator_id)])
-                result = cursor.fetchall()
-                for i in result:
-                    name=i[7]
-                    id=i[6]
-                    product=i[9]
-                hr = str(datetime.datetime.now().hour)
-                min = str(datetime.datetime.now().minute)
-                time=hr+':'+min
-                year = str(datetime.datetime.now().year)
-                month = str(datetime.datetime.now().month)
-                day = str(datetime.datetime.now().day)
-                date=day+'/'+month+'/'+year
-                print(name,id,product,time,date)
-                return render(request, 'authenticate/operator_window.html', {'name':name,'id':id,'product':product,'time':time,'date':date})
-            else:
-                register='You have to register than you can login'
-                return render(request, 'authenticate/login.html', {'registerfirst':register})
-
-        except sqlite3.Error as error:
-            print("Failed to read data from sqlite table", error)
+        result=UserProfileInfo.objects.filter(operator_id=operator_id,password=password)
+        if result:
+            for i in result:
+                name=i.operator_name
+                id=i.operator_id
+                product=i.product_category
+            hr = str(datetime.datetime.now().hour)
+            min = str(datetime.datetime.now().minute)
+            time=hr+':'+min
+            year = str(datetime.datetime.now().year)
+            month = str(datetime.datetime.now().month)
+            day = str(datetime.datetime.now().day)
+            date=day+'/'+month+'/'+year
+            print(name,id,product,time,date)
+            return render(request, 'authenticate/operator_window.html', {'name':name,'id':id,'product':product,'time':time,'date':date})
+        else:
+            register='You have to register than you can login'
+            return render(request, 'authenticate/login.html', {'registerfirst':register})
     else:
         return render(request, 'authenticate/login.html', {})
 
