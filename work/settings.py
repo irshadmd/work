@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authenticate',
     'attendence',
+    'operators',
 ]
 
 MIDDLEWARE = [

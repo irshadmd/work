@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^special/',views.special,name='special'),
     url(r'^authenticate/',include('authenticate.urls')),
     url(r'^attendence/',include('attendence.urls')),
+    path('operators/',include('operators.urls')),
 ]
