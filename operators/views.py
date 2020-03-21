@@ -321,7 +321,8 @@ def reworkreport(request):
 
         userp=UserProfileInfo.objects.filter(operator_id=operatorid)
         return render(request,'reworkreport.html',{'reports':reports,'total':a,'userp':userp,'totalpcs':totalpcs
-            ,'qualitytimeloss':qualitytimeloss,'coq':coq})
+            ,'qualitytimeloss':qualitytimeloss,'coq':coq,'dailyrepair':drep,'dailyfinishreturn':ftktno
+            ,'dailycutdefect':cutdefno,'dailycuttingmiss':daicutmiss})
     return render(request,'reworkreport.html') 
 
 def operatorskillmatrix(request):

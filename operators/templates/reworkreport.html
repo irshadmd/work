@@ -67,7 +67,6 @@
                 <table id="myTable1" class="table">
                   <thead style="background-color: #2E2D2D;color: white">
                     <tr>
-                      <th>S.No</th>
                       <th>Operator ID</th>
                       <th>Operator Name</th>
                       <th>Operation</th>
@@ -78,7 +77,6 @@
                     {% for i in reports %}
                         {% if forloop.counter == 1 %}
                           <tr>
-                            <td>{{forloop.counter }}</td>
                             <td>{{i.operator_id }}</td>
                             <td>{{i.operator_name }}</td>
                             <td>{{ i.operation }}</td>
@@ -87,15 +85,30 @@
                         {% endif %}
                     {% endfor %}
                   </tbody>
-                  <th style="background-color: #2E2D2D;color: white">Total Rework Pieces</th>
-                  <td style="background-color: #337ab7;color: white">{{total}}</td>
-                  <th style="background-color: #2E2D2D;color: white">Total pcs</th>
-                  <td style="background-color: #337ab7;color: white">{{totalpcs}}</td>
+
+                  <tr>
+                    <th style="background-color: #2E2D2D;color: white">Total Rework Pieces</th>
+                    <td style="background-color: #337ab7;color: white">{{total}}</td>
+                    <th style="background-color: #2E2D2D;color: white">Daily Repair</th>
+                    <td style="background-color: #337ab7;color: white">{{dailyrepair}}</td>  
+                  </tr>
+                  <tr>
+                    <th style="background-color: #2E2D2D;color: white">Daily Finish Return</th>
+                    <td style="background-color: #337ab7;color: white">{{dailyfinishreturn}}</td>
+                    <th style="background-color: #2E2D2D;color: white">Daily Cutting Defect</th>
+                    <td style="background-color: #337ab7;color: white">{{dailycutdefect}}</td>  
+                  </tr>
+                  <tr>
+                    <th style="background-color: #2E2D2D;color: white">Daily Cutting Miss</th>
+                    <td style="background-color: #337ab7;color: white">{{dailycuttingmiss}}</td>
+                    <th style="background-color: #2E2D2D;color: white">Total pcs</th>
+                    <td style="background-color: #b77633;color: white">{{totalpcs}}</td>
+                  </tr>
                   <tr>
                     <th style="background-color: #2E2D2D;color: white">Quality Time Loss</th>
-                    <td style="background-color: #337ab7;color: white">{{qualitytimeloss}}</td>  
+                    <td style="background-color: #b77633;color: white">{{qualitytimeloss}}</td>  
                     <th style="background-color: #2E2D2D;color: white">COQ</th>
-                    <td style="background-color: #337ab7;color: white">{{coq}}</td>
+                    <td style="background-color: #b77633;color: white">{{coq}}</td>
                   </tr>
                 </table>
               </div>
@@ -121,7 +134,7 @@
                     {% for i in reports %}
                         {% if i.rework_ticket_no|slugify != '' %}
                           <tr >
-                            <td>{{forloop.counter }}</td>
+                            <td>{{forloop.counter}}</td>
                             <td>{{ i.rework_ticket_no }}</td>
                             <td>{{ i.repair_tkt_no }}</td>
                             <td>{{ i.finishreturn_tkt_no }}</td>
