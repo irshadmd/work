@@ -234,10 +234,18 @@
           </tr>
           <tr>
             <td></td>
-            <td>4</td>
-            <td>8</td>
-            <td>16</td>
-            <td>8</td>
+            <td>
+              <input type="number" name="displace" value="{{displace}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="setting" value="{{setting}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="breakdown" value="{{breakdown}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="powerfailure" value="{{powerfailure}}" readonly>
+            </td>
             <td></td>
           </tr>
           <tr>
@@ -246,21 +254,31 @@
             <td></td>
             <td></td>
             <td></td>
-            <td>36</td>
+            <td>
+              <input type="number" name="machinelosstime" value="{{machinelosstime}}" readonly>
+            </td>
           </tr>
           <tr>
             <td></td>
-            <td>0.5</td>
-            <td>1</td>
-            <td>2</td>
-            <td>1</td>
+            <td>
+              <input type="radio" name="maintenance" value="dw0.5">
+            </td>
+            <td>
+              <input type="radio" name="maintenance" value="se1">
+            </td>
+            <td>
+              <input type="radio" name="maintenance" value="br2">
+            </td>
+            <td>
+              <input type="radio" name="maintenance" value="pf1">
+            </td>
             <td></td>
           </tr>
         </tbody>
         <td>
           <label>Machine </label>
-          <input type="submit" class="btn btn-success" value="Start" name="start" >
-          <input type="submit" class="btn btn-danger" value="Stop" name="stop" >
+          <input type="submit" class="btn btn-success" value="Start" name="machinestart" >
+          <input type="submit" class="btn btn-danger" value="Stop" name="machinestop" >
         </td>
 
       </table>
@@ -291,14 +309,30 @@
           </tr>
           <tr>
             <td></td>
-            <td>0.20</td>
-            <td>0.20</td>
-            <td>0.10</td>
-            <td>0.10</td>
-            <td>10.00</td>
-            <td>15.00</td>
-            <td>5.00</td>
-            <td>0.00</td>
+            <td>
+              <input type="number" name="machineissue" value="{{machineissue}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="qualityissue" value="{{qualityissue}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="trimsissue" value="{{trimsissue}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="others" value="{{others}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="delaystart" value="{{delaystart}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="demo" value="{{demo}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="learing" value="{{learing}}" readonly>
+            </td>
+            <td>
+              <input type="number" name="fullswing" value="{{fullswing}}" readonly>
+            </td>
             <td></td>
           </tr>
           <tr>
@@ -311,25 +345,43 @@
             <th></th>
             <th></th>
             <th></th>
-            <th>30.60</th>
+            <th>
+              <input type="number" name="colosstime" value="{{colosstime}}" readonly>
+            </th>
           </tr>
           <tr>
             <td></td>
-            <td>0.1</td>
-            <td>0.1</td>
-            <td>0.05</td>
-            <td>0.05</td>
-            <td>5.00</td>
-            <td>5.00</td>
-            <td>10.00</td>
-            <td>0.00</td>
+            <td>
+              <input type="radio" name="smed" value="mi0.1">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="qi0.1">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="ti0.05">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="ot0.05">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="ds5.00">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="de5.00">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="le10.00">
+            </td>
+            <td>
+              <input type="radio" name="smed" value="fs0.00">
+            </td>
             <td></td>
           </tr>
         </tbody>
         <td>
           <label>CO </label>
-          <input type="submit" class="btn btn-success" value="Start" name="start" >
-          <input type="submit" class="btn btn-danger" value="Stop" name="stop" >
+          <input type="submit" class="btn btn-success" value="Start" name="costart" >
+          <input type="submit" class="btn btn-danger" value="Stop" name="costop" >
         </td>
       </table>
     </div>

@@ -83,9 +83,24 @@ def user_login(request):
             daily_finish_return=0
             daily_cut_defect=0
             dailycuttingmiss=0
+            displace=0
+            setting=0
+            breakdown=0
+            powerfailure=0
+            machineissue=0
+            qualityissue=0
+            trimsissue=0
+            others=0
+            delaystart=0
+            demo=0
+            learing=0
+            fullswing=0
             return render(request, 'operator_window.html', {'name':name,'id':id,'product':product,'time':time,'date':date,'lineno':lineno
                 ,'total_pieces':total_pieces,'rework_pieces':rework_pieces,'daily_repair':daily_repair
-                ,'daily_finish_return':daily_finish_return,'daily_cut_defect':daily_cut_defect,'dailycuttingmiss':dailycuttingmiss})
+                ,'daily_finish_return':daily_finish_return,'daily_cut_defect':daily_cut_defect,'dailycuttingmiss':dailycuttingmiss
+                ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
+                ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing})
         else:
             register='You have to register than you can login'
             return render(request, 'op_login.html', {'registerfirst':register})
@@ -93,23 +108,59 @@ def user_login(request):
         return render(request, 'op_login.html', {})
 
 def window(request):
-    if request.method=='POST' and 'start' in request.POST:
+    if request.method=='POST' and 'machinestop' in request.POST:
         operator_id =request.POST['opid']
         operator_name =request.POST['opname']
         operation=request.POST['operation']
         start_time=request.POST['optime']
         hr = str(datetime.datetime.now().hour)
         min = str(datetime.datetime.now().minute)
-        time=hr+':'+min
+        stop_time=hr+':'+min
         date=request.POST['opdate']
-        total_pieces=request.POST['stitchedpieces']
+        total_pieces=request.POST['hourlyachieved']
         rework_pieces=request.POST['reworkpieces']
-        machine_run_time=request.POST['optime']
-        machine_breakdown_time=time
-        
-        window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation,start_time=start_time
-            ,date=date,machine_run_time=machine_run_time
-            ,machine_breakdown_time=machine_breakdown_time)
+        maintenance=request.POST['maintenance']
+        daily_repair=request.POST['dailyrepair']
+        daily_finish_return=request.POST['dailyfinishreturn']
+        daily_cut_defect=request.POST['dailycutdefect']
+        dailycutting_miss=request.POST['dailycutmiss']
+        displace=request.POST['displace']
+        setting=request.POST['setting']
+        breakdown=request.POST['breakdown']
+        powerfailure=request.POST['powerfailure']
+        machineissue=request.POST['machineissue']
+        qualityissue=request.POST['qualityissue']
+        trimsissue=request.POST['trimsissue']
+        others=request.POST['others']
+        delaystart=request.POST['delaystart']
+        demo=request.POST['demo']
+        learing=request.POST['learing']
+        fullswing=request.POST['fullswing']
+        maintenancename=""
+        maintenanceval=0
+        if maintenance == "dw0.5":
+            maintenancename="Displace/Waiting"
+            maintenanceval=(float(maintenance[2:]))*8
+            displace=float(displace)+float(maintenanceval)
+        elif maintenance == "se1":
+            maintenancename="Setting"
+            maintenanceval=(float(maintenance[2:]))*8
+            setting=float(setting)+float(maintenanceval)
+        elif maintenance == "br2":
+            maintenancename="Breakdown"
+            maintenanceval=(float(maintenance[2:]))*8
+            breakdown=float(breakdown)+float(maintenanceval)
+        elif maintenance == "pf1":
+            maintenancename="Power failure"
+            maintenanceval=(float(maintenance[2:]))*8
+            powerfailure=float(powerfailure)+float(maintenanceval)
+
+        machinelosstime=float(displace)+float(setting)+float(breakdown)+float(powerfailure)
+
+        print(maintenance,maintenanceval,maintenancename)
+        window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
+            ,date=date,maintenance_name=maintenancename,maintenance_value=maintenanceval
+            ,maintenance_stop_time=stop_time)
         window_info.save()                
 
         result=UserProfileInfo.objects.filter(operator_id=operator_id)
@@ -125,30 +176,48 @@ def window(request):
             corrdate=str(datetime.date.today())
             date=dateFormat(corrdate)
             print(name,id,product,time,date)
-            return render(request, 'operator_window.html', {'name':name,'id':id,'product':product,'time':time,'date':date,'lineno':lineno,'total_pieces':total_pieces,'rework_pieces':rework_pieces})
-    if request.method=='POST' and 'stop' in request.POST:
+            return render(request, 'operator_window.html', {'name':name,'id':id,'product':product,'time':time
+                ,'date':date,'lineno':lineno,'total_pieces':total_pieces,'rework_pieces':rework_pieces
+                ,'dailycuttingmiss':dailycutting_miss,'daily_cut_defect':daily_cut_defect
+                ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
+                ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure,'machinelosstime':machinelosstime
+                ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing})
+    if request.method=='POST' and 'machinestart' in request.POST:
         operator_id =request.POST['opid']
         operator_name =request.POST['opname']
         operation=request.POST['operation']
         start_time=request.POST['optime']
         hr = str(datetime.datetime.now().hour)
         min = str(datetime.datetime.now().minute)
-        time=hr+':'+min
-        stop_time=time
-        duration=time
+        stop_time=hr+':'+min
         date=request.POST['opdate']
-        machine_stop_time=time
-        machine_run_time=request.POST['optime']
-        total_pieces=request.POST['stitchedpieces']
+        total_pieces=request.POST['hourlyachieved']
         rework_pieces=request.POST['reworkpieces']
-        machine_breakdown_time=time
-        frequency_of_machine_stop=1
+        daily_repair=request.POST['dailyrepair']
+        daily_finish_return=request.POST['dailyfinishreturn']
+        daily_cut_defect=request.POST['dailycutdefect']
+        dailycutting_miss=request.POST['dailycutmiss']
+
+        displace=request.POST['displace']
+        setting=request.POST['setting']
+        breakdown=request.POST['breakdown']
+        powerfailure=request.POST['powerfailure']
+
+        machineissue=request.POST['machineissue']
+        qualityissue=request.POST['qualityissue']
+        trimsissue=request.POST['trimsissue']
+        others=request.POST['others']
+        delaystart=request.POST['delaystart']
+        demo=request.POST['demo']
+        learing=request.POST['learing']
+        fullswing=request.POST['fullswing']
         
+        machinelosstime=float(displace)+float(setting)+float(breakdown)+float(powerfailure)
+
         window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation,start_time=start_time
-            ,stop_time=stop_time,duration=duration,date=date,machine_stop_time=machine_stop_time,machine_run_time=machine_run_time
-            ,machine_breakdown_time=machine_breakdown_time,frequency_of_machine_stop=frequency_of_machine_stop
-            )
-        window_info.save()     
+            ,date=date,maintenance_start_time=start_time)
+        # window_info.save()                
 
         result=UserProfileInfo.objects.filter(operator_id=operator_id)
         if result:
@@ -163,7 +232,13 @@ def window(request):
             corrdate=str(datetime.date.today())
             date=dateFormat(corrdate)
             print(name,id,product,time,date)
-            return render(request, 'operator_window.html', {'name':name,'id':id,'product':product,'time':time,'date':date,'lineno':lineno,'total_pieces':total_pieces,'rework_pieces':rework_pieces})
+            return render(request, 'operator_window.html', {'name':name,'id':id,'product':product,'time':time
+                ,'date':date,'lineno':lineno,'total_pieces':total_pieces,'rework_pieces':rework_pieces
+                ,'dailycuttingmiss':dailycutting_miss,'daily_cut_defect':daily_cut_defect
+                ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
+                ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure,'machinelosstime':machinelosstime
+                ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing})
     if request.method=='POST' and 'saverework' in request.POST:
         operator_id =request.POST['opid']
         operator_name =request.POST['opname']
@@ -181,6 +256,21 @@ def window(request):
         finishreturntktno=request.POST['finishreturntktno']
         cutdefectno=request.POST['cutdefectno']
         cutmissdefectno=request.POST['cutmissdefectno']
+
+        displace=request.POST['displace']
+        setting=request.POST['setting']
+        breakdown=request.POST['breakdown']
+        powerfailure=request.POST['powerfailure']
+
+        machineissue=request.POST['machineissue']
+        qualityissue=request.POST['qualityissue']
+        trimsissue=request.POST['trimsissue']
+        others=request.POST['others']
+        delaystart=request.POST['delaystart']
+        demo=request.POST['demo']
+        learing=request.POST['learing']
+        fullswing=request.POST['fullswing']
+
         cutmissdefectno_list=strtolist(cutmissdefectno)
         dailycuttingmiss=(int(cutmissdefectno_list[1])-int(cutmissdefectno_list[0]))+1
         rework_ticket_no=selfreworktktno_list
@@ -218,7 +308,9 @@ def window(request):
                 ,'rework_pieces':rwp,'total_pieces':stitp,'dailycuttingmiss':dailycutting_miss
                 ,'daily_cut_defect':daily_cut_defect,'daily_finish_return':daily_finish_return
                 ,'daily_repair':daily_repair,'qualitylosstime':qualitylosstime
-                ,'totalpcs':totalpcs,'coq':coq})
+                ,'totalpcs':totalpcs,'coq':coq,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
+                ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing})
     if request.method=='POST' and 'saveticket' in request.POST:
         operator_id =request.POST['opid']
         date=request.POST['opdate']
@@ -233,6 +325,20 @@ def window(request):
         daily_finish_return=request.POST['dailyfinishreturn']
         daily_cut_defect=request.POST['dailycutdefect']
         dailycuttingmiss=request.POST['dailycutmiss']
+
+        displace=request.POST['displace']
+        setting=request.POST['setting']
+        breakdown=request.POST['breakdown']
+        powerfailure=request.POST['powerfailure']
+
+        machineissue=request.POST['machineissue']
+        qualityissue=request.POST['qualityissue']
+        trimsissue=request.POST['trimsissue']
+        others=request.POST['others']
+        delaystart=request.POST['delaystart']
+        demo=request.POST['demo']
+        learing=request.POST['learing']
+        fullswing=request.POST['fullswing']
 
         stitp=int(stitp)
         total_pieces=(int(ticket_no_end)-int(ticket_no_start))+1
@@ -260,8 +366,161 @@ def window(request):
             print(name,id,product,time,date)
             return render(request, 'operator_window.html', {'name':name,'id':id,'product':product,'time':time,'date':date,'lineno':lineno
                 ,'total_pieces':stitp,'wip':wip,'efficiency':efficiency,'performance':performance,'rework_pieces':rwp,'daily_repair':daily_repair
-                ,'daily_finish_return':daily_finish_return,'daily_cut_defect':daily_cut_defect,'dailycuttingmiss':dailycuttingmiss}) 
-    
+                ,'daily_finish_return':daily_finish_return,'daily_cut_defect':daily_cut_defect,'dailycuttingmiss':dailycuttingmiss
+                ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
+                ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing}) 
+
+    if request.method=='POST' and 'costop' in request.POST:
+        operator_id =request.POST['opid']
+        operator_name =request.POST['opname']
+        operation=request.POST['operation']
+        start_time=request.POST['optime']
+        hr = str(datetime.datetime.now().hour)
+        min = str(datetime.datetime.now().minute)
+        stop_time=hr+':'+min
+        date=request.POST['opdate']
+        total_pieces=request.POST['hourlyachieved']
+        rework_pieces=request.POST['reworkpieces']
+        daily_repair=request.POST['dailyrepair']
+        daily_finish_return=request.POST['dailyfinishreturn']
+        daily_cut_defect=request.POST['dailycutdefect']
+        dailycutting_miss=request.POST['dailycutmiss']
+        displace=request.POST['displace']
+        setting=request.POST['setting']
+        breakdown=request.POST['breakdown']
+        powerfailure=request.POST['powerfailure']
+        machineissue=request.POST['machineissue']
+        qualityissue=request.POST['qualityissue']
+        trimsissue=request.POST['trimsissue']
+        others=request.POST['others']
+        delaystart=request.POST['delaystart']
+        demo=request.POST['demo']
+        learing=request.POST['learing']
+        fullswing=request.POST['fullswing']
+        smed=request.POST['smed']
+
+
+        smedname=""
+        smedval=0
+        if smed == "mi0.1":
+            smedname="Machine Issue"
+            smedval=(float(smed[2:]))*2
+            machineissue=float(machineissue)+float(smedval)
+        elif smed == "qi0.1":
+            smedname="Quality Issue"
+            smedval=(float(smed[2:]))*2
+            qualityissue=float(qualityissue)+float(smedval)
+        elif smed == "ti0.05":
+            smedname="Trims Issue"
+            smedval=(float(smed[2:]))*2
+            trimsissue=float(trimsissue)+float(smedval)
+        elif smed == "ot0.05":
+            smedname="Others"
+            smedval=(float(smed[2:]))*2
+            others=float(others)+float(smedval)
+        elif smed == "ds0.05":
+            smedname="Delay Start"
+            smedval=(float(smed[2:]))*2
+            delaystart=float(delaystart)+float(smedval)
+        elif smed == "de0.05":
+            smedname="Demo"
+            smedval=(float(smed[2:]))*3
+            demo=float(demo)+float(smedval)
+        elif smed == "le10.00":
+            smedname="Learing"
+            smedval=(float(smed[2:]))*0.5
+            learing=float(learing)+float(smedval)
+        elif smed == "fs0.00":
+            smedname="Full Swing"
+            smedval=float(smed[2:])
+            fullswing=float(fullswing)+float(smedval)
+
+        colosstime=float(machineissue)+float(qualityissue)+float(trimsissue)+float(others)+float(delaystart)+float(demo)+float(learing)+float(fullswing)
+
+        print(smed,smedval,smedname)
+        window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
+            ,date=date,smed_start_time=start_time,smed_stop_time=stop_time,smed_name=smedname
+            ,smed_value=smedval)
+        window_info.save()                
+
+        result=UserProfileInfo.objects.filter(operator_id=operator_id)
+        if result:
+            for i in result:
+                name=i.operator_name
+                id=i.operator_id
+                product=i.product_category
+                lineno=i.line_no
+            hr = str(datetime.datetime.now().hour)
+            min = str(datetime.datetime.now().minute)
+            time=hr+':'+min
+            corrdate=str(datetime.date.today())
+            date=dateFormat(corrdate)
+            print(name,id,product,time,date)
+            return render(request, 'operator_window.html', {'name':name,'id':id,'product':product,'time':time
+                ,'date':date,'lineno':lineno,'total_pieces':total_pieces,'rework_pieces':rework_pieces
+                ,'dailycuttingmiss':dailycutting_miss,'daily_cut_defect':daily_cut_defect
+                ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
+                ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
+                ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime})
+    if request.method=='POST' and 'costart' in request.POST:
+        operator_id =request.POST['opid']
+        operator_name =request.POST['opname']
+        operation=request.POST['operation']
+        start_time=request.POST['optime']
+        hr = str(datetime.datetime.now().hour)
+        min = str(datetime.datetime.now().minute)
+        stop_time=hr+':'+min
+        date=request.POST['opdate']
+        total_pieces=request.POST['hourlyachieved']
+        rework_pieces=request.POST['reworkpieces']
+        daily_repair=request.POST['dailyrepair']
+        daily_finish_return=request.POST['dailyfinishreturn']
+        daily_cut_defect=request.POST['dailycutdefect']
+        dailycutting_miss=request.POST['dailycutmiss']
+        displace=request.POST['displace']
+        setting=request.POST['setting']
+        breakdown=request.POST['breakdown']
+        powerfailure=request.POST['powerfailure']
+        machineissue=request.POST['machineissue']
+        qualityissue=request.POST['qualityissue']
+        trimsissue=request.POST['trimsissue']
+        others=request.POST['others']
+        delaystart=request.POST['delaystart']
+        demo=request.POST['demo']
+        learing=request.POST['learing']
+        fullswing=request.POST['fullswing']
+
+        colosstime=machineissue+qualityissue+trimsissue+others+delaystart+demo+learing+fullswing
+
+        print(smed,smedval,smedname)
+        window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
+            ,date=date,smed_start_time=start_time,smed_stop_time=stop_time,smed_name=smedname
+            ,smed_value=smedval)
+        #window_info.save()                
+
+        result=UserProfileInfo.objects.filter(operator_id=operator_id)
+        if result:
+            for i in result:
+                name=i.operator_name
+                id=i.operator_id
+                product=i.product_category
+                lineno=i.line_no
+            hr = str(datetime.datetime.now().hour)
+            min = str(datetime.datetime.now().minute)
+            time=hr+':'+min
+            corrdate=str(datetime.date.today())
+            date=dateFormat(corrdate)
+            print(name,id,product,time,date)
+            return render(request, 'operator_window.html', {'name':name,'id':id,'product':product,'time':time
+                ,'date':date,'lineno':lineno,'total_pieces':total_pieces,'rework_pieces':rework_pieces
+                ,'dailycuttingmiss':dailycutting_miss,'daily_cut_defect':daily_cut_defect
+                ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
+                ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
+                ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime})
+
     total_pieces=0
     rework_pieces=0
     return render(request,'operator_window.html',{'total_pieces':total_pieces,'rework_pieces':rework_pieces})
@@ -324,6 +583,77 @@ def reworkreport(request):
             ,'qualitytimeloss':qualitytimeloss,'coq':coq,'dailyrepair':drep,'dailyfinishreturn':ftktno
             ,'dailycutdefect':cutdefno,'dailycuttingmiss':daicutmiss})
     return render(request,'reworkreport.html') 
+
+def maintenancereport(request):
+    if request.method=='POST':
+        operatorid=request.POST['opid']
+        operation=request.POST['operation']
+        date=request.POST['date']
+        print(operatorid,operation,date,str(datetime.date.today()))
+        reports=OperatorWindow.objects.filter(operator_id=operatorid,operation=operation,date=date)
+        print(reports)
+        displace=0
+        breakdown=0
+        setting=0
+        powerfailure=0
+        for i in reports:
+            if i.maintenance_name=='Displace/Waiting':
+                displace=displace+float(i.maintenance_value)
+            elif i.maintenance_name=='Breakdown':
+                breakdown=breakdown+float(i.maintenance_value)
+            elif i.maintenance_name=='Setting':
+                setting=setting+float(i.maintenance_value)
+            elif i.maintenance_name=='Power failure':
+                powerfailure=powerfailure+float(i.maintenance_value)
+
+        machinelosstime=displace+breakdown+setting+powerfailure
+
+        userp=UserProfileInfo.objects.filter(operator_id=operatorid)
+        return render(request,'operatorwindowmaintenancereport.html',{'reports':reports,'userp':userp
+            ,'displace':displace,'breakdown':breakdown,'setting':setting,'powerfailure':powerfailure,'machinelosstime':machinelosstime})
+    return render(request,'operatorwindowmaintenancereport.html')
+
+def smedreport(request):
+    if request.method=='POST':
+        operatorid=request.POST['opid']
+        operation=request.POST['operation']
+        date=request.POST['date']
+        print(operatorid,operation,date,str(datetime.date.today()))
+        reports=OperatorWindow.objects.filter(operator_id=operatorid,operation=operation,date=date)
+        print(reports)
+        machineissue=0
+        qualityissue=0
+        trimsissue=0
+        others=0
+        delaystart=0
+        demo=0
+        learing=0
+        fullswing=0
+        for i in reports:
+            if i.smed_name=='Machine Issue':
+                machineissue=machineissue+float(i.smed_value)
+            elif i.smed_name=='Quality Issue':
+                qualityissue=qualityissue+float(i.smed_value)
+            elif i.smed_name=='Trims Issue':
+                trimsissue=trimsissue+float(i.smed_value)
+            elif i.smed_name=='Others':
+                others=others+float(i.smed_value)
+            elif i.smed_name=='Delay Start':
+                delaystart=delaystart+float(i.smed_value)
+            elif i.smed_name=='Demo':
+                demo=demo+float(i.smed_value)
+            elif i.smed_name=='Learing':
+                learing=learing+float(i.smed_value)
+            elif i.smed_name=='Full Swing':
+                fullswing=fullswing+float(i.smed_value)
+
+        colosstime=machineissue+qualityissue+trimsissue+others+delaystart+demo+learing+fullswing
+
+        userp=UserProfileInfo.objects.filter(operator_id=operatorid)
+        return render(request,'operatorwindowsmedreport.html',{'reports':reports,'userp':userp
+            ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
+            ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime})
+    return render(request,'operatorwindowsmedreport.html')
 
 def operatorskillmatrix(request):
     if request.method=='POST' and 'linesubmit' in request.POST:

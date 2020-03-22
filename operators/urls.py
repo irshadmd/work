@@ -22,5 +22,7 @@ urlpatterns=[
     path('leavereport',views.leavereport),
     path('dprreporthome',views.dprreporthome),
     path('dprreport',views.dprreport),
-    path('operationbulletin',views.operationbulletin)
+    path('operationbulletin',views.operationbulletin),
+    path('maintenancereport',views.maintenancereport),
+    path('smedreport',views.smedreport)
 ]
