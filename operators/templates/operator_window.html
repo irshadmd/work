@@ -104,7 +104,9 @@
             
           </tr>
         </tbody>
-          <td><input type="submit" class="btn btn-primary" value="Save" name="saveticket"></td>
+          <td><input type="submit" class="btn btn-primary saveticket" value="Save" name="saveticket">
+            <input type="number" name="saveticketcount" value="{{saveticketcount}}"  style="text-align: center; width: 50px;" readonly>
+          </td>
       </table>
     </div>
   </div>
@@ -179,7 +181,9 @@
             <td></td>
           </tr>
         </tbody>
-        <td><input type="submit" class="btn btn-primary" value="Save" name="saverework"></td>
+        <td><input type="submit" class="btn btn-primary" value="Save" name="saverework">
+          <input type="number" name="savereworkcount" value="{{savereworkcount}}" style="text-align: center; width: 50px;" readonly>
+        </td>
       </table>
     </div>
   </div>

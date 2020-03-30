@@ -92,7 +92,7 @@
         <tbody>
             <tr>
               <th>dart stitch</th>
-              <td> </td>
+              <td>4</td>
               {% for operator in operator_list %}
                 {% if 'dart_stitch' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -100,8 +100,7 @@
                     {% for a,b in ope|zip:sk %}
                       {% if 'dart_stitch' == a %}
                             <td>
-                              <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="{{ b }}" checked>
-                              <label for="skill">{{ b }}</label>
+                              {{ b }}
                             </td>
                       {% endif %}
                     {% endfor %}
@@ -109,7 +108,7 @@
                   {% endwith %}
                 {% else %}
                   <td>
-                    <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="0" checked>
+
                   </td>
                 {% endif %}
               {% endfor %}
@@ -117,7 +116,7 @@
             </tr>
             <tr>
               <th>panel attach</th>
-              <td> </td>
+              <td>3</td>
               {% for operator in operator_list %}
                 {% if 'panel_attach' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -125,8 +124,7 @@
                     {% for a,b in ope|zip:sk %}
                       {% if 'panel_attach' == a %}
                             <td>
-                              <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="{{ b }}" checked>
-                              <label for="skill">{{ b }}</label>
+                              {{ b }}
                             </td>
                       {% endif %}
                     {% endfor %}
@@ -134,14 +132,14 @@
                   {% endwith %}
                 {% else %}
                   <td>
-                    <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="0" checked>
+
                   </td>
                 {% endif %}
               {% endfor %}
             </tr>
             <tr>
               <th>dart and panel pressing</th>
-              <td> </td>
+              <td>5</td>
               {% for operator in operator_list %}
                 {% if 'dart_and_panel_pressing' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -149,8 +147,7 @@
                     {% for a,b in ope|zip:sk %}
                       {% if 'dart_and_panel_pressing' == a %}
                             <td>
-                              <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="{{ b }}" checked>
-                              <label for="skill">{{ b }}</label>
+                              {{ b }}
                             </td>
                       {% endif %}
                     {% endfor %}
@@ -158,14 +155,14 @@
                   {% endwith %}
                 {% else %}
                   <td>
-                    <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="0" checked>
+
                   </td>
                 {% endif %}
               {% endfor %}
             </tr>
             <tr>
               <th>centre back stitch</th>
-              <td> </td>
+              <td>2</td>
               {% for operator in operator_list %}
                 {% if 'centre_back_stitch' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -173,8 +170,7 @@
                     {% for a,b in ope|zip:sk %}
                       {% if 'centre_back_stitch' == a %}
                             <td>
-                              <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="{{ b }}" checked>
-                              <label for="skill">{{ b }}</label>
+                              {{ b }}
                             </td>
                       {% endif %}
                     {% endfor %}
@@ -182,14 +178,14 @@
                   {% endwith %}
                 {% else %}
                   <td>
-                    <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="0" checked>
+
                   </td>
                 {% endif %}
               {% endfor %}
             </tr>
             <tr>
               <th>diamond stitch</th>
-              <td> </td>
+              <td>3</td>
               {% for operator in operator_list %}
                 {% if 'diamond_stitch' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -197,8 +193,7 @@
                     {% for a,b in ope|zip:sk %}
                       {% if 'diamond_stitch' == a %}
                             <td>
-                              <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="{{ b }}" checked>
-                              <label for="skill">{{ b }}</label>
+                              {{ b }}
                             </td>
                       {% endif %}
                     {% endfor %}
@@ -206,14 +201,14 @@
                   {% endwith %}
                 {% else %}
                   <td>
-                    <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="0" checked>
+
                   </td>
                 {% endif %}
               {% endfor %}
             </tr>
             <tr>
               <th>chest welt iron</th>
-              <td> </td>
+              <td>1</td>
               {% for operator in operator_list %}
                 {% if 'chest_welt_iron' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -221,8 +216,7 @@
                     {% for a,b in ope|zip:sk %}
                       {% if 'chest_welt_iron' == a %}
                             <td>
-                              <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="{{ b }}" checked>
-                              <label for="skill">{{ b }}</label>
+                              {{ b }}
                             </td>
                       {% endif %}
                     {% endfor %}
@@ -230,14 +224,14 @@
                   {% endwith %}
                 {% else %}
                   <td>
-                    <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="0" checked>
+                    
                   </td>
                 {% endif %}
               {% endfor %}
             </tr>
             <tr>
               <th>chest welt attach</th>
-              <td> </td>
+              <td>4</td>
               {% for operator in operator_list %}
                 {% if 'chest_welt_attach' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -245,8 +239,7 @@
                     {% for a,b in ope|zip:sk %}
                       {% if 'chest_welt_attach' == a %}
                             <td>
-                              <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="{{ b }}" checked>
-                              <label for="skill">{{ b }}</label>
+                              {{ b }}
                             </td>
                       {% endif %}
                     {% endfor %}
@@ -254,14 +247,14 @@
                   {% endwith %}
                 {% else %}
                   <td>
-                    <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="0" checked>
+
                   </td>
                 {% endif %}
               {% endfor %}
             </tr>
             <tr>
               <th>side seam</th>
-              <td> </td>
+              <td>3</td>
               {% for operator in operator_list %}
                 {% if 'side_seam' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -269,8 +262,7 @@
                     {% for a,b in ope|zip:sk %}
                       {% if 'side_seam' == a %}
                             <td>
-                              <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="{{ b }}" checked>
-                              <label for="skill">{{ b }}</label>
+                              {{ b }}
                             </td>
                       {% endif %}
                     {% endfor %}
@@ -278,7 +270,7 @@
                   {% endwith %}
                 {% else %}
                   <td>
-                    <input type="checkbox" id="skill" name="{{ operator.operator_id }}" value="0" checked >
+                    
                   </td>
                 {% endif %}
               {% endfor %}

@@ -95,12 +95,15 @@ def user_login(request):
             demo=0
             learing=0
             fullswing=0
+            saveticketcount=0
+            savereworkcount=0
             return render(request, 'operator_window.html', {'name':name,'id':id,'product':product,'time':time,'date':date,'lineno':lineno
                 ,'total_pieces':total_pieces,'rework_pieces':rework_pieces,'daily_repair':daily_repair
                 ,'daily_finish_return':daily_finish_return,'daily_cut_defect':daily_cut_defect,'dailycuttingmiss':dailycuttingmiss
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing
+                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
         else:
             register='You have to register than you can login'
             return render(request, 'op_login.html', {'registerfirst':register})
@@ -136,6 +139,8 @@ def window(request):
         demo=request.POST['demo']
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
+        saveticketcount=request.POST['saveticketcount']
+        savereworkcount=request.POST['savereworkcount']
         maintenancename=""
         maintenanceval=0
         if maintenance == "dw0.5":
@@ -182,7 +187,8 @@ def window(request):
                 ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure,'machinelosstime':machinelosstime
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing
+                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
     if request.method=='POST' and 'machinestart' in request.POST:
         operator_id =request.POST['opid']
         operator_name =request.POST['opname']
@@ -212,12 +218,14 @@ def window(request):
         demo=request.POST['demo']
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
+        saveticketcount=request.POST['saveticketcount']
+        savereworkcount=request.POST['savereworkcount']
         
         machinelosstime=float(displace)+float(setting)+float(breakdown)+float(powerfailure)
 
-        window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation,start_time=start_time
+        window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
             ,date=date,maintenance_start_time=start_time)
-        # window_info.save()                
+        window_info.save()                
 
         result=UserProfileInfo.objects.filter(operator_id=operator_id)
         if result:
@@ -238,7 +246,8 @@ def window(request):
                 ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure,'machinelosstime':machinelosstime
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing
+                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
     if request.method=='POST' and 'saverework' in request.POST:
         operator_id =request.POST['opid']
         operator_name =request.POST['opname']
@@ -270,6 +279,8 @@ def window(request):
         demo=request.POST['demo']
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
+        saveticketcount=request.POST['saveticketcount']
+        savereworkcount=request.POST['savereworkcount']
 
         cutmissdefectno_list=strtolist(cutmissdefectno)
         dailycuttingmiss=(int(cutmissdefectno_list[1])-int(cutmissdefectno_list[0]))+1
@@ -285,6 +296,9 @@ def window(request):
         totalpcs=int(rwp)+int(daily_repair)+int(daily_finish_return)+int(daily_cut_defect)+int(dailycutting_miss)
         qualitylosstime=int(rwp)*1+int(daily_repair)*1+int(daily_finish_return)*2+int(daily_cut_defect)*1+int(dailycutting_miss)*1.5
         coq=qualitylosstime*3
+
+        savereworkcount=int(savereworkcount)+1
+
         window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name
             ,operation=operation,date=date,rework_ticket_no=selfreworktktno,repair_tkt_no=repairtktno
             ,finishreturn_tkt_no=finishreturntktno,cutdefect_no=cutdefectno,cutmiss_tkt_no=cutmissdefectno
@@ -310,7 +324,8 @@ def window(request):
                 ,'daily_repair':daily_repair,'qualitylosstime':qualitylosstime
                 ,'totalpcs':totalpcs,'coq':coq,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing
+                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
     if request.method=='POST' and 'saveticket' in request.POST:
         operator_id =request.POST['opid']
         date=request.POST['opdate']
@@ -339,6 +354,8 @@ def window(request):
         demo=request.POST['demo']
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
+        saveticketcount=request.POST['saveticketcount']
+        savereworkcount=request.POST['savereworkcount']
 
         stitp=int(stitp)
         total_pieces=(int(ticket_no_end)-int(ticket_no_start))+1
@@ -346,6 +363,7 @@ def window(request):
         wip=int(nextoperation)-int(ticket_no_end)
         efficiency=(stitp*0.8)/450
         performance=(stitp*0.8)/(450-96.90)
+        saveticketcount=int(saveticketcount)+1
         window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
             ,ticket_no_start=ticket_no_start,date=date
             ,ticket_no_end=ticket_no_end,total_pieces=stitp,next_operation=nextoperation,wip=wip)
@@ -369,7 +387,8 @@ def window(request):
                 ,'daily_finish_return':daily_finish_return,'daily_cut_defect':daily_cut_defect,'dailycuttingmiss':dailycuttingmiss
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing}) 
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing
+                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount}) 
 
     if request.method=='POST' and 'costop' in request.POST:
         operator_id =request.POST['opid']
@@ -399,6 +418,8 @@ def window(request):
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
         smed=request.POST['smed']
+        saveticketcount=request.POST['saveticketcount']
+        savereworkcount=request.POST['savereworkcount']
 
 
         smedname=""
@@ -463,7 +484,8 @@ def window(request):
                 ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime
+                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
     if request.method=='POST' and 'costart' in request.POST:
         operator_id =request.POST['opid']
         operator_name =request.POST['opname']
@@ -491,6 +513,8 @@ def window(request):
         demo=request.POST['demo']
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
+        saveticketcount=request.POST['saveticketcount']
+        savereworkcount=request.POST['savereworkcount']
 
         colosstime=machineissue+qualityissue+trimsissue+others+delaystart+demo+learing+fullswing
 
@@ -498,7 +522,7 @@ def window(request):
         window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
             ,date=date,smed_start_time=start_time,smed_stop_time=stop_time,smed_name=smedname
             ,smed_value=smedval)
-        #window_info.save()                
+        window_info.save()                
 
         result=UserProfileInfo.objects.filter(operator_id=operator_id)
         if result:
@@ -519,7 +543,8 @@ def window(request):
                 ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime
+                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
 
     total_pieces=0
     rework_pieces=0
@@ -656,6 +681,37 @@ def smedreport(request):
     return render(request,'operatorwindowsmedreport.html')
 
 def operatorskillmatrix(request):
+    operator_list=UserProfileInfo.objects.all()
+    dart=0
+    panel=0
+    dartpanelpressing=0
+    centrebackstitch=0
+    diamondstitch=0
+    chestweltiron=0
+    chestweltattach=0
+    sideseam=0
+    for operator in operator_list:
+        if 'dart_stitch' in operator.operation:
+            dart=dart+1
+        elif 'panel_attach' in operator.operation:
+            panel=panel+1
+        elif 'dart_and_panel_pressing' in operator.operation:
+            dartpanelpressing=dartpanelpressing+1
+        elif 'centre_back_stitch' in operator.operation:
+            centrebackstitch=centrebackstitch+1
+        elif 'diamond_stitch' in operator.operation:
+            diamondstitch=diamondstitch+1
+        elif 'chest_welt_iron' in operator.operation:
+            chestweltiron=chestweltiron+1
+        elif 'chest_welt_attach' in operator.operation:
+            chestweltattach=chestweltattach+1
+        elif 'side_seam' in operator.operation:
+            sideseam=sideseam+1
+    
+    operatorpop = {'dart_stitch':dart, 'panel_attach':panel,'dart_and_panel_pressing':dartpanelpressing
+    ,'centre_back_stitch':centrebackstitch,'diamond_stitch':diamondstitch
+    ,'chest_welt_iron':chestweltiron,'chest_welt_attach':chestweltattach,'side_seam':sideseam}
+
     if request.method=='POST' and 'linesubmit' in request.POST:
         lineno=request.POST['lineno']
         product=request.POST['product']
@@ -697,10 +753,12 @@ def operatorskillmatrix(request):
         for i,val in enumerate(operators):
             skill=request.POST.getlist(val.operator_id)
             print(skill,i)
+    
     cdate=str(date.today())
     operator_list=UserProfileInfo.objects.all()
+    
     return render(request,'operator_skill_matrix.html',{'operator_list':operator_list
-    ,'cdate':cdate})
+    ,'cdate':cdate,'operatorpop':operatorpop})
 
 def takeattendence(request):
     today = str(date.today())
