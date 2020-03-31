@@ -1,0 +1,596 @@
+Microsoft Windows [Version 10.0.18363.752]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\Amil Saleem>mkdir project
+
+C:\Users\Amil Saleem>cd project
+
+C:\Users\Amil Saleem\project>virtualenv
+usage: virtualenv [--version] [--with-traceback] [-v | -q] [--app-data APP_DATA] [--clear-app-data] [--discovery {builtin}] [-p py] [--creator {builtin,cpython3-win,venv}] [--seeder {app-data,pip}] [--no-seed] [--activators comma_sep_list]
+                  [--clear] [--system-site-packages] [--copies] [--download | --no-download] [--extra-search-dir d [d ...]] [--pip version] [--setuptools version] [--wheel version] [--no-pip] [--no-setuptools] [--no-wheel]
+                  [--symlink-app-data] [--prompt prompt] [-h]
+                  dest
+virtualenv: error: the following arguments are required: dest
+
+C:\Users\Amil Saleem\project>virtualenv venv
+created virtual environment CPython3.7.7.final.0-64 in 3247ms
+  creator CPython3Windows(dest=C:\Users\Amil Saleem\project\venv, clear=False, global=False)
+  seeder FromAppData(download=False, pip=latest, setuptools=latest, wheel=latest, via=copy, app_data_dir=C:\Users\Amil Saleem\AppData\Local\pypa\virtualenv\seed-app-data\v1.0.1)
+  activators BashActivator,BatchActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+
+C:\Users\Amil Saleem\project>cd venv
+
+C:\Users\Amil Saleem\project\venv>scripts\activate
+
+(venv) C:\Users\Amil Saleem\project\venv>pip install django-jet
+Collecting django-jet
+  Downloading django-jet-1.0.8.tar.gz (829 kB)
+     |████████████████████████████████| 829 kB 6.8 MB/s
+Collecting Django
+  Using cached Django-3.0.4-py3-none-any.whl (7.5 MB)
+Collecting asgiref~=3.2
+  Using cached asgiref-3.2.7-py2.py3-none-any.whl (19 kB)
+Collecting pytz
+  Using cached pytz-2019.3-py2.py3-none-any.whl (509 kB)
+Collecting sqlparse>=0.2.2
+  Using cached sqlparse-0.3.1-py2.py3-none-any.whl (40 kB)
+Building wheels for collected packages: django-jet
+  Building wheel for django-jet (setup.py) ... done
+  Created wheel for django-jet: filename=django_jet-1.0.8-py3-none-any.whl size=1079343 sha256=75f8352dd2952cf23f21a2c37f2d465f595e98cfdf48dd1f8bfc3658c131b69f
+  Stored in directory: c:\users\amil saleem\appdata\local\pip\cache\wheels\47\24\32\2e4236a57c69e2898485fde4a0ac35ea9c9741f5c2f2b3b1fd
+Successfully built django-jet
+Installing collected packages: asgiref, pytz, sqlparse, Django, django-jet
+Successfully installed Django-3.0.4 asgiref-3.2.7 django-jet-1.0.8 pytz-2019.3 sqlparse-0.3.1
+
+(venv) C:\Users\Amil Saleem\project\venv>pip install django-smart_selects
+Collecting django-smart_selects
+  Downloading django-smart-selects-1.5.4.tar.gz (20 kB)
+Building wheels for collected packages: django-smart-selects
+  Building wheel for django-smart-selects (setup.py) ... done
+  Created wheel for django-smart-selects: filename=django_smart_selects-1.5.4-py3-none-any.whl size=30771 sha256=64273dc7cdb97dbb92a6a7cd22c5823d4ce2c429b2a53f22fa3387af64d1f3c8
+  Stored in directory: c:\users\amil saleem\appdata\local\pip\cache\wheels\0b\64\c4\0b47efadd68177cf4f7bdbe873fa16a8da9988eabab9c1e612
+Successfully built django-smart-selects
+Installing collected packages: django-smart-selects
+Successfully installed django-smart-selects-1.5.4
+
+(venv) C:\Users\Amil Saleem\project\venv>pip install django-colorfield
+Collecting django-colorfield
+  Downloading django-colorfield-0.2.1.tar.gz (27 kB)
+Building wheels for collected packages: django-colorfield
+  Building wheel for django-colorfield (setup.py) ... done
+  Created wheel for django-colorfield: filename=django_colorfield-0.2.1-py3-none-any.whl size=28621 sha256=6e8e2c55739ceb184fa85f9c8deed2491ed11aa56933e0c3abdf8ae073620ce3
+  Stored in directory: c:\users\amil saleem\appdata\local\pip\cache\wheels\62\b0\ab\7aeb240e8efa13d84a8bbbe952b953f22ff8159617366d1c36
+Successfully built django-colorfield
+Installing collected packages: django-colorfield
+Successfully installed django-colorfield-0.2.1
+
+(venv) C:\Users\Amil Saleem\project\venv>pip install django-qr_code
+Collecting django-qr_code
+  Downloading django_qr_code-1.1.0-py3-none-any.whl (15 kB)
+Requirement already satisfied: django in c:\users\amil saleem\project\venv\lib\site-packages (from django-qr_code) (3.0.4)
+Collecting qrcode
+  Downloading qrcode-6.1-py2.py3-none-any.whl (31 kB)
+Requirement already satisfied: asgiref~=3.2 in c:\users\amil saleem\project\venv\lib\site-packages (from django->django-qr_code) (3.2.7)
+Requirement already satisfied: pytz in c:\users\amil saleem\project\venv\lib\site-packages (from django->django-qr_code) (2019.3)
+Requirement already satisfied: sqlparse>=0.2.2 in c:\users\amil saleem\project\venv\lib\site-packages (from django->django-qr_code) (0.3.1)
+Collecting six
+  Using cached six-1.14.0-py2.py3-none-any.whl (10 kB)
+Collecting colorama; platform_system == "Windows"
+  Downloading colorama-0.4.3-py2.py3-none-any.whl (15 kB)
+Installing collected packages: six, colorama, qrcode, django-qr-code
+Successfully installed colorama-0.4.3 django-qr-code-1.1.0 qrcode-6.1 six-1.14.0
+
+(venv) C:\Users\Amil Saleem\project\venv>pip install django-import_export
+Collecting django-import_export
+  Downloading django_import_export-2.0.2-py3-none-any.whl (82 kB)
+     |████████████████████████████████| 82 kB 390 kB/s
+Collecting diff-match-patch
+  Downloading diff-match-patch-20181111.tar.gz (58 kB)
+     |████████████████████████████████| 58 kB 1.6 MB/s
+Requirement already satisfied: Django>=2.0 in c:\users\amil saleem\project\venv\lib\site-packages (from django-import_export) (3.0.4)
+Collecting tablib[html,ods,xls,xlsx,yaml]>=0.14.0
+  Downloading tablib-1.1.0-py3-none-any.whl (47 kB)
+     |████████████████████████████████| 47 kB 2.0 MB/s
+Requirement already satisfied: asgiref~=3.2 in c:\users\amil saleem\project\venv\lib\site-packages (from Django>=2.0->django-import_export) (3.2.7)
+Requirement already satisfied: pytz in c:\users\amil saleem\project\venv\lib\site-packages (from Django>=2.0->django-import_export) (2019.3)
+Requirement already satisfied: sqlparse>=0.2.2 in c:\users\amil saleem\project\venv\lib\site-packages (from Django>=2.0->django-import_export) (0.3.1)
+Collecting markuppy; extra == "html"
+  Downloading MarkupPy-1.14.tar.gz (6.8 kB)
+Collecting odfpy; extra == "ods"
+  Downloading odfpy-1.4.1.tar.gz (717 kB)
+     |████████████████████████████████| 717 kB 3.3 MB/s
+Collecting xlrd; extra == "xls"
+  Downloading xlrd-1.2.0-py2.py3-none-any.whl (103 kB)
+     |████████████████████████████████| 103 kB 6.8 MB/s
+Collecting xlwt; extra == "xls"
+  Downloading xlwt-1.3.0-py2.py3-none-any.whl (99 kB)
+     |████████████████████████████████| 99 kB 2.8 MB/s
+Collecting openpyxl>=2.4.0; extra == "xlsx"
+  Downloading openpyxl-3.0.3.tar.gz (172 kB)
+     |████████████████████████████████| 172 kB 6.4 MB/s
+Collecting pyyaml; extra == "yaml"
+  Downloading PyYAML-5.3.1-cp37-cp37m-win_amd64.whl (216 kB)
+     |████████████████████████████████| 216 kB 3.3 MB/s
+Collecting defusedxml
+  Downloading defusedxml-0.6.0-py2.py3-none-any.whl (23 kB)
+Collecting jdcal
+  Downloading jdcal-1.4.1-py2.py3-none-any.whl (9.5 kB)
+Collecting et_xmlfile
+  Downloading et_xmlfile-1.0.1.tar.gz (8.4 kB)
+Building wheels for collected packages: diff-match-patch, markuppy, odfpy, openpyxl, et-xmlfile
+  Building wheel for diff-match-patch (setup.py) ... done
+  Created wheel for diff-match-patch: filename=diff_match_patch-20181111-py3-none-any.whl size=58512 sha256=3fec09f7d3754a821876c992d8785a28ac62f1e975009dc58af443d550b4eb40
+  Stored in directory: c:\users\amil saleem\appdata\local\pip\cache\wheels\4e\c0\05\b3b0802fcee352294ae0cf3cf91cdcce4752b29b988492d05f
+  Building wheel for markuppy (setup.py) ... done
+  Created wheel for markuppy: filename=MarkupPy-1.14-py3-none-any.whl size=7421 sha256=8c69bf75365a52d2da1a9001fd9a6b167592f64d0428b83e07fd5b8edd706558
+  Stored in directory: c:\users\amil saleem\appdata\local\pip\cache\wheels\38\2d\77\8b01cae5f0bed4c438be1cc1881158ebc397d5e7b1f3deabc8
+  Building wheel for odfpy (setup.py) ... done
+  Created wheel for odfpy: filename=odfpy-1.4.1-py2.py3-none-any.whl size=137345 sha256=e262995b39db66941a1d39b88566de8b2719f19d0731290a7ed7089d6f2935ed
+  Stored in directory: c:\users\amil saleem\appdata\local\pip\cache\wheels\e2\f4\5d\a68c656235d33455a1d0f78e877acddfa006907a6d52d7e6ee
+  Building wheel for openpyxl (setup.py) ... done
+  Created wheel for openpyxl: filename=openpyxl-3.0.3-py2.py3-none-any.whl size=241264 sha256=9243e7eb9afccc6ac63c5a6ec4f71f7b691a726dc483b8861dcbadfea92cf0a8
+  Stored in directory: c:\users\amil saleem\appdata\local\pip\cache\wheels\5b\c0\e7\e16d3916984addf40bd021fa98d1624cb24a9adc48da4e62b5
+  Building wheel for et-xmlfile (setup.py) ... done
+  Created wheel for et-xmlfile: filename=et_xmlfile-1.0.1-py3-none-any.whl size=8920 sha256=72ff0ddda1945be0b7570ec37de04099b04a98c0699e09dff9ea538259e57345
+  Stored in directory: c:\users\amil saleem\appdata\local\pip\cache\wheels\e2\bd\55\048b4fd505716c4c298f42ee02dffd9496bb6d212b266c7f31
+Successfully built diff-match-patch markuppy odfpy openpyxl et-xmlfile
+Installing collected packages: diff-match-patch, markuppy, defusedxml, odfpy, xlrd, xlwt, jdcal, et-xmlfile, openpyxl, pyyaml, tablib, django-import-export
+Successfully installed defusedxml-0.6.0 diff-match-patch-20181111 django-import-export-2.0.2 et-xmlfile-1.0.1 jdcal-1.4.1 markuppy-1.14 odfpy-1.4.1 openpyxl-3.0.3 pyyaml-5.3.1 tablib-1.1.0 xlrd-1.2.0 xlwt-1.3.0
+
+(venv) C:\Users\Amil Saleem\project\venv>pip install numpy
+Collecting numpy
+  Using cached numpy-1.18.2-cp37-cp37m-win_amd64.whl (12.8 MB)
+Installing collected packages: numpy
+Successfully installed numpy-1.18.2
+
+(venv) C:\Users\Amil Saleem\project\venv>pip install django==2
+Collecting django==2
+  Downloading Django-2.0-py3-none-any.whl (7.1 MB)
+     |████████████████████████████████| 7.1 MB 2.2 MB/s
+Requirement already satisfied: pytz in c:\users\amil saleem\project\venv\lib\site-packages (from django==2) (2019.3)
+Installing collected packages: django
+  Attempting uninstall: django
+    Found existing installation: Django 3.0.4
+    Uninstalling Django-3.0.4:
+      Successfully uninstalled Django-3.0.4
+Successfully installed django-2.0
+
+(venv) C:\Users\Amil Saleem\project\venv>pip install pyzbar
+Collecting pyzbar
+  Downloading pyzbar-0.1.8-py2.py3-none-win_amd64.whl (813 kB)
+     |████████████████████████████████| 813 kB 6.4 MB/s
+Installing collected packages: pyzbar
+Successfully installed pyzbar-0.1.8
+
+(venv) C:\Users\Amil Saleem\project\venv>pip install pillow
+Collecting pillow
+  Downloading Pillow-7.0.0-cp37-cp37m-win_amd64.whl (2.0 MB)
+     |████████████████████████████████| 2.0 MB 3.2 MB/s
+Installing collected packages: pillow
+Successfully installed pillow-7.0.0
+
+(venv) C:\Users\Amil Saleem\project\venv>pip install xhtml2pdf
+Collecting xhtml2pdf
+  Downloading xhtml2pdf-0.2.4.tar.gz (98 kB)
+     |████████████████████████████████| 98 kB 2.5 MB/s
+Collecting html5lib>=1.0
+  Downloading html5lib-1.0.1-py2.py3-none-any.whl (117 kB)
+     |████████████████████████████████| 117 kB ...
+Collecting pyPdf2
+  Downloading PyPDF2-1.26.0.tar.gz (77 kB)
+     |████████████████████████████████| 77 kB 2.9 MB/s
+Requirement already satisfied: Pillow in c:\users\amil saleem\project\venv\lib\site-packages (from xhtml2pdf) (7.0.0)
+Collecting reportlab>=3.0
+  Downloading reportlab-3.5.42-cp37-cp37m-win_amd64.whl (2.3 MB)
+     |████████████████████████████████| 2.3 MB 6.8 MB/s
+Requirement already satisfied: six in c:\users\amil saleem\project\venv\lib\site-packages (from xhtml2pdf) (1.14.0)
+Collecting webencodings
+  Downloading webencodings-0.5.1-py2.py3-none-any.whl (11 kB)
+Building wheels for collected packages: xhtml2pdf, pyPdf2
+  Building wheel for xhtml2pdf (setup.py) ... done
+  Created wheel for xhtml2pdf: filename=xhtml2pdf-0.2.4-py3-none-any.whl size=230447 sha256=c4ec41e3519ef3b37da3fbdd41951f4f1dd6b4b1e45d12d4917fd6a8b3ccdcf3
+  Stored in directory: c:\users\amil saleem\appdata\local\pip\cache\wheels\23\ae\9b\5bdc8cfa4da93458a765c8921b8b37b9ce92fef88fd38612f1
+  Building wheel for pyPdf2 (setup.py) ... done
+  Created wheel for pyPdf2: filename=PyPDF2-1.26.0-py3-none-any.whl size=61087 sha256=2f8e83bfa75516eb6d3f708575bac0bf386686ccbaac9aca6335620906921ed5
+  Stored in directory: c:\users\amil saleem\appdata\local\pip\cache\wheels\80\1a\24\648467ade3a77ed20f35cfd2badd32134e96dd25ca811e64b3
+Successfully built xhtml2pdf pyPdf2
+Installing collected packages: webencodings, html5lib, pyPdf2, reportlab, xhtml2pdf
+Successfully installed html5lib-1.0.1 pyPdf2-1.26.0 reportlab-3.5.42 webencodings-0.5.1 xhtml2pdf-0.2.4
+
+(venv) C:\Users\Amil Saleem\project\venv>python manage.py runserver
+python: can't open file 'manage.py': [Errno 2] No such file or directory
+
+(venv) C:\Users\Amil Saleem\project\venv>cd B2B
+
+(venv) C:\Users\Amil Saleem\project\venv\B2B>python manage.py runserver
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 30, 2020 - 21:04:29
+Django version 2.0, using settings 'movintrendz.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+[30/Mar/2020 21:05:13] "GET / HTTP/1.1" 200 72911
+[30/Mar/2020 21:05:13] "GET /static/css/style.css HTTP/1.1" 200 14488
+[30/Mar/2020 21:05:13] "GET /static/fontawesome/css/all.css HTTP/1.1" 200 74946
+[30/Mar/2020 21:05:13] "GET /static/fontawesome/less/fontawesome.less HTTP/1.1" 200 521
+[30/Mar/2020 21:05:13] "GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 200 202385
+[30/Mar/2020 21:05:13] "GET /static/fontawesome/scss/fontawesome.scss HTTP/1.1" 200 449
+[30/Mar/2020 21:05:13] "GET /static/img/loader.gif HTTP/1.1" 200 922466
+Not Found: /media/local/product/8917836107080.jpeg
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:05:13] "GET /media/local/product/8917836107080.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:05:13] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+[30/Mar/2020 21:05:13] "GET /static/img/banner-01.jpeg HTTP/1.1" 200 72420
+[30/Mar/2020 21:05:13] "GET /static/img/banner-02.jpeg HTTP/1.1" 200 129601
+[30/Mar/2020 21:05:13] "GET /static/img/banner-03.jpeg HTTP/1.1" 200 44731
+Not Found: /media/local/product/7009986517584.webp
+Not Found: /media/local/product/10608504358317.jpeg
+[30/Mar/2020 21:05:13] "GET /media/local/product/10608504358317.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/7410370106178.jpeg
+[30/Mar/2020 21:05:13] "GET /media/local/product/7009986517584.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/289050867828.jpeg
+[30/Mar/2020 21:05:13] "GET /media/local/product/7410370106178.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:05:13] "GET /media/local/product/289050867828.jpeg HTTP/1.1" 404 1858
+Not Found: /media/local/product/11958967216789.jpeg
+[30/Mar/2020 21:05:13] "GET /media/local/product/11958967216789.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/7625812771441.jpeg
+[30/Mar/2020 21:05:13] "GET /media/local/product/7625812771441.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/5727618284933.webp
+Not Found: /media/local/product/10619471810950.jfif
+[30/Mar/2020 21:05:14] "GET /media/local/product/5727618284933.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/4945463303576.jpeg
+[30/Mar/2020 21:05:14] "GET /media/local/product/10619471810950.jfif HTTP/1.1" 404 1864
+[30/Mar/2020 21:05:14] "GET /media/local/product/4945463303576.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:05:14] "GET /static/img/payment.png HTTP/1.1" 200 38947
+[30/Mar/2020 21:05:14] "GET /static/fonts/Cabin/Cabin-Regular.ttf HTTP/1.1" 200 93176
+[30/Mar/2020 21:05:14] "GET /static/fonts/Pacifico/Pacifico-Regular.ttf HTTP/1.1" 200 201432
+[30/Mar/2020 21:05:14] "GET /static/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 13584
+[30/Mar/2020 21:05:14] "GET /static/img/favicon.png HTTP/1.1" 200 1163
+[30/Mar/2020 21:05:39] "GET / HTTP/1.1" 200 72911
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:05:39] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+Not Found: /media/local/product/8917836107080.jpeg
+[30/Mar/2020 21:05:39] "GET /media/local/product/8917836107080.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/7009986517584.webp
+[30/Mar/2020 21:05:40] "GET /media/local/product/7009986517584.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/10608504358317.jpeg
+[30/Mar/2020 21:05:40] "GET /media/local/product/10608504358317.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/7410370106178.jpeg
+[30/Mar/2020 21:05:40] "GET /media/local/product/7410370106178.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/289050867828.jpeg
+[30/Mar/2020 21:05:40] "GET /media/local/product/289050867828.jpeg HTTP/1.1" 404 1858
+Not Found: /media/local/product/11958967216789.jpeg
+[30/Mar/2020 21:05:40] "GET /media/local/product/11958967216789.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/7625812771441.jpeg
+[30/Mar/2020 21:05:40] "GET /media/local/product/7625812771441.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/5727618284933.webp
+[30/Mar/2020 21:05:40] "GET /media/local/product/5727618284933.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/10619471810950.jfif
+[30/Mar/2020 21:05:40] "GET /media/local/product/10619471810950.jfif HTTP/1.1" 404 1864
+Not Found: /media/local/product/4945463303576.jpeg
+[30/Mar/2020 21:05:40] "GET /media/local/product/4945463303576.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:05:40] "GET /static/img/favicon.png HTTP/1.1" 200 1163
+[30/Mar/2020 21:05:45] "GET / HTTP/1.1" 200 72911
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:05:45] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+Not Found: /media/local/product/8917836107080.jpeg
+[30/Mar/2020 21:05:45] "GET /media/local/product/8917836107080.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/7009986517584.webp
+[30/Mar/2020 21:05:45] "GET /media/local/product/7009986517584.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/10608504358317.jpeg
+[30/Mar/2020 21:05:45] "GET /media/local/product/10608504358317.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/7410370106178.jpeg
+[30/Mar/2020 21:05:45] "GET /media/local/product/7410370106178.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/7625812771441.jpeg
+[30/Mar/2020 21:05:45] "GET /media/local/product/7625812771441.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/11958967216789.jpeg
+[30/Mar/2020 21:05:45] "GET /media/local/product/11958967216789.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/289050867828.jpeg
+Not Found: /media/local/product/5727618284933.webp
+[30/Mar/2020 21:05:45] "GET /media/local/product/289050867828.jpeg HTTP/1.1" 404 1858
+[30/Mar/2020 21:05:45] "GET /media/local/product/5727618284933.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/10619471810950.jfif
+Not Found: /media/local/product/4945463303576.jpeg
+[30/Mar/2020 21:05:45] "GET /media/local/product/10619471810950.jfif HTTP/1.1" 404 1864
+[30/Mar/2020 21:05:45] "GET /media/local/product/4945463303576.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:05:46] "GET /static/img/favicon.png HTTP/1.1" 200 1163
+[30/Mar/2020 21:05:56] "GET / HTTP/1.1" 200 72911
+[30/Mar/2020 21:05:56] "GET /static/css/style.css HTTP/1.1" 304 0
+[30/Mar/2020 21:05:56] "GET /static/fontawesome/css/all.css HTTP/1.1" 304 0
+[30/Mar/2020 21:05:56] "GET /static/fontawesome/scss/fontawesome.scss HTTP/1.1" 304 0
+[30/Mar/2020 21:05:56] "GET /static/fontawesome/less/fontawesome.less HTTP/1.1" 304 0
+[30/Mar/2020 21:05:56] "GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:05:56] "GET /static/img/loader.gif HTTP/1.1" 304 0
+[30/Mar/2020 21:05:56] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+Not Found: /media/local/product/8917836107080.jpeg
+[30/Mar/2020 21:05:56] "GET /media/local/product/8917836107080.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:05:56] "GET /static/img/banner-01.jpeg HTTP/1.1" 304 0
+[30/Mar/2020 21:05:56] "GET /static/img/banner-02.jpeg HTTP/1.1" 304 0
+[30/Mar/2020 21:05:56] "GET /static/img/banner-03.jpeg HTTP/1.1" 304 0
+Not Found: /media/local/product/7009986517584.webp
+[30/Mar/2020 21:05:56] "GET /media/local/product/7009986517584.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/10608504358317.jpeg
+[30/Mar/2020 21:05:56] "GET /media/local/product/10608504358317.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/7410370106178.jpeg
+Not Found: /media/local/product/289050867828.jpeg
+[30/Mar/2020 21:05:56] "GET /media/local/product/7410370106178.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:05:56] "GET /media/local/product/289050867828.jpeg HTTP/1.1" 404 1858
+Not Found: /media/local/product/11958967216789.jpeg
+[30/Mar/2020 21:05:56] "GET /media/local/product/11958967216789.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/7625812771441.jpeg
+[30/Mar/2020 21:05:56] "GET /media/local/product/7625812771441.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/5727618284933.webp
+[30/Mar/2020 21:05:56] "GET /media/local/product/5727618284933.webp HTTP/1.1" 404 1861
+[30/Mar/2020 21:05:56] "GET /static/fonts/Pacifico/Pacifico-Regular.ttf HTTP/1.1" 304 0
+[30/Mar/2020 21:05:56] "GET /static/fonts/Cabin/Cabin-Regular.ttf HTTP/1.1" 304 0
+Not Found: /media/local/product/10619471810950.jfif
+[30/Mar/2020 21:05:56] "GET /media/local/product/10619471810950.jfif HTTP/1.1" 404 1864
+Not Found: /media/local/product/4945463303576.jpeg
+[30/Mar/2020 21:05:56] "GET /media/local/product/4945463303576.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:05:56] "GET /static/img/payment.png HTTP/1.1" 304 0
+[30/Mar/2020 21:05:57] "GET /static/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+[30/Mar/2020 21:06:16] "GET / HTTP/1.1" 200 72911
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:06:16] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+[30/Mar/2020 21:06:16] "GET /static/bootstrap/js/bootstrap.js HTTP/1.1" 200 136072
+[30/Mar/2020 21:06:16] "GET /static/jQuery/jQuery.js HTTP/1.1" 200 290962
+Not Found: /media/local/product/8917836107080.jpeg
+[30/Mar/2020 21:06:16] "GET /media/local/product/8917836107080.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:06:16] "GET /static/js/script.js HTTP/1.1" 200 4242
+Not Found: /media/local/product/7009986517584.webp
+[30/Mar/2020 21:06:16] "GET /media/local/product/7009986517584.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/10608504358317.jpeg
+[30/Mar/2020 21:06:16] "GET /media/local/product/10608504358317.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/7410370106178.jpeg
+[30/Mar/2020 21:06:16] "GET /media/local/product/7410370106178.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/289050867828.jpeg
+[30/Mar/2020 21:06:16] "GET /media/local/product/289050867828.jpeg HTTP/1.1" 404 1858
+Not Found: /media/local/product/11958967216789.jpeg
+Not Found: /media/local/product/7625812771441.jpeg
+[30/Mar/2020 21:06:16] "GET /media/local/product/11958967216789.jpeg HTTP/1.1" 404 1864
+[30/Mar/2020 21:06:16] "GET /media/local/product/7625812771441.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/5727618284933.webp
+[30/Mar/2020 21:06:16] "GET /media/local/product/5727618284933.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/10619471810950.jfif
+[30/Mar/2020 21:06:16] "GET /media/local/product/10619471810950.jfif HTTP/1.1" 404 1864
+[30/Mar/2020 21:06:16] "GET /static/fontawesome/js/all.js HTTP/1.1" 200 1206441
+Not Found: /media/local/product/4945463303576.jpeg
+[30/Mar/2020 21:06:17] "GET /media/local/product/4945463303576.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:07:40] "GET /userdetail/login HTTP/1.1" 301 0
+[30/Mar/2020 21:07:40] "GET /userdetail/login/ HTTP/1.1" 200 63612
+[30/Mar/2020 21:07:40] "GET /static/css/userdetail/login.css HTTP/1.1" 200 1581
+[30/Mar/2020 21:07:40] "GET /static/css/style.css HTTP/1.1" 304 0
+[30/Mar/2020 21:07:40] "GET /static/fontawesome/css/all.css HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/fontawesome/less/fontawesome.less HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/fontawesome/scss/fontawesome.scss HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/fontawesome/js/all.js HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/bootstrap/js/bootstrap.js HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/jQuery/jQuery.js HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/img/loader.gif HTTP/1.1" 304 0
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:07:41] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+[30/Mar/2020 21:07:41] "GET /static/js/script.js HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/img/payment.png HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/fonts/Cabin/Cabin-Regular.ttf HTTP/1.1" 304 0
+[30/Mar/2020 21:07:41] "GET /static/fonts/Pacifico/Pacifico-Regular.ttf HTTP/1.1" 304 0
+[30/Mar/2020 21:08:02] "POST /userdetail/login/ HTTP/1.1" 302 0
+[30/Mar/2020 21:08:02] "GET / HTTP/1.1" 200 72390
+Not Found: /media/local/product/11698353805867.png
+Not Found: /media/local/product/8917836107080.jpeg
+[30/Mar/2020 21:08:02] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+[30/Mar/2020 21:08:02] "GET /media/local/product/8917836107080.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:08:02] "GET /static/img/banner-01.jpeg HTTP/1.1" 304 0
+[30/Mar/2020 21:08:02] "GET /static/img/banner-02.jpeg HTTP/1.1" 304 0
+[30/Mar/2020 21:08:02] "GET /static/img/banner-03.jpeg HTTP/1.1" 304 0
+Not Found: /media/local/product/7009986517584.webp
+Not Found: /media/local/product/10608504358317.jpeg
+[30/Mar/2020 21:08:02] "GET /media/local/product/7009986517584.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/7410370106178.jpeg
+[30/Mar/2020 21:08:02] "GET /media/local/product/10608504358317.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/289050867828.jpeg
+Not Found: /media/local/product/11958967216789.jpeg
+[30/Mar/2020 21:08:03] "GET /media/local/product/7410370106178.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/7625812771441.jpeg
+[30/Mar/2020 21:08:03] "GET /media/local/product/289050867828.jpeg HTTP/1.1" 404 1858
+[30/Mar/2020 21:08:03] "GET /media/local/product/11958967216789.jpeg HTTP/1.1" 404 1864
+[30/Mar/2020 21:08:03] "GET /media/local/product/7625812771441.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/5727618284933.webp
+[30/Mar/2020 21:08:03] "GET /media/local/product/5727618284933.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/10619471810950.jfif
+[30/Mar/2020 21:08:03] "GET /media/local/product/10619471810950.jfif HTTP/1.1" 404 1864
+Not Found: /media/local/product/4945463303576.jpeg
+[30/Mar/2020 21:08:03] "GET /media/local/product/4945463303576.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:08:11] "GET /admin HTTP/1.1" 301 0
+[30/Mar/2020 21:08:14] "GET /admin/ HTTP/1.1" 200 189891
+[30/Mar/2020 21:08:14] "GET /static/admin/css/base.css HTTP/1.1" 200 0
+[30/Mar/2020 21:08:14] "GET /static/jet/css/vendor.css?v=1.0.8 HTTP/1.1" 200 53889
+[30/Mar/2020 21:08:14] "GET /static/jet/css/icons/style.css?v=1.0.8 HTTP/1.1" 200 2248
+[30/Mar/2020 21:08:14] "GET /static/jet/css/themes/default/base.css?v=1.0.8 HTTP/1.1" 200 178918
+[30/Mar/2020 21:08:14] "GET /static/jet/css/themes/default/jquery-ui.theme.css?v=1.0.8 HTTP/1.1" 200 6760
+[30/Mar/2020 21:08:14] "GET /static/admin/css/dashboard.css HTTP/1.1" 200 0
+[30/Mar/2020 21:08:14] "GET /static/jet/css/themes/default/select2.theme.css?v=1.0.8 HTTP/1.1" 200 23574
+[30/Mar/2020 21:08:14] "GET /jet/jsi18n/ HTTP/1.1" 200 3185
+[30/Mar/2020 21:08:14] "GET /static/img/logo1.png HTTP/1.1" 200 26766
+[30/Mar/2020 21:08:14] "GET /static/jet/js/i18n/select2/en.js?v=1.0.8 HTTP/1.1" 200 827
+[30/Mar/2020 21:08:14] "GET /static/jet/js/build/bundle.min.js?v=1.0.8 HTTP/1.1" 200 417084
+[30/Mar/2020 21:08:15] "GET /static/jet/css/icons/fonts/jet-icons.ttf?415d6s HTTP/1.1" 200 6240
+[30/Mar/2020 21:08:15] "GET /favicon.ico HTTP/1.1" 301 0
+[30/Mar/2020 21:08:15] "GET /favicon.ico/ HTTP/1.1" 302 0
+[30/Mar/2020 21:08:16] "GET / HTTP/1.1" 200 72390
+[30/Mar/2020 21:08:32] "GET /admin/logout/ HTTP/1.1" 200 4634
+[30/Mar/2020 21:08:32] "GET /jet/jsi18n/ HTTP/1.1" 200 3185
+[30/Mar/2020 21:08:32] "GET /favicon.ico/ HTTP/1.1" 302 0
+[30/Mar/2020 21:08:33] "GET / HTTP/1.1" 200 72911
+[30/Mar/2020 21:08:39] "GET / HTTP/1.1" 200 72911
+[30/Mar/2020 21:08:39] "GET /static/css/style.css HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/fontawesome/css/all.css HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/fontawesome/less/fontawesome.less HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/fontawesome/scss/fontawesome.scss HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/jQuery/jQuery.js HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/bootstrap/js/bootstrap.js HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/fontawesome/js/all.js HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/img/loader.gif HTTP/1.1" 304 0
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:08:39] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+[30/Mar/2020 21:08:39] "GET /static/js/script.js HTTP/1.1" 304 0
+Not Found: /media/local/product/8917836107080.jpeg
+Not Found: /media/local/product/7009986517584.webp
+[30/Mar/2020 21:08:39] "GET /media/local/product/8917836107080.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:08:39] "GET /media/local/product/7009986517584.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/10608504358317.jpeg
+Not Found: /media/local/product/7410370106178.jpeg
+[30/Mar/2020 21:08:39] "GET /media/local/product/10608504358317.jpeg HTTP/1.1" 404 1864
+[30/Mar/2020 21:08:39] "GET /media/local/product/7410370106178.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/289050867828.jpeg
+[30/Mar/2020 21:08:39] "GET /media/local/product/289050867828.jpeg HTTP/1.1" 404 1858
+Not Found: /media/local/product/11958967216789.jpeg
+Not Found: /media/local/product/7625812771441.jpeg
+Not Found: /media/local/product/5727618284933.webp
+[30/Mar/2020 21:08:39] "GET /media/local/product/7625812771441.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/10619471810950.jfif
+[30/Mar/2020 21:08:39] "GET /media/local/product/11958967216789.jpeg HTTP/1.1" 404 1864
+[30/Mar/2020 21:08:39] "GET /media/local/product/5727618284933.webp HTTP/1.1" 404 1861
+[30/Mar/2020 21:08:39] "GET /media/local/product/10619471810950.jfif HTTP/1.1" 404 1864
+Not Found: /media/local/product/4945463303576.jpeg
+[30/Mar/2020 21:08:39] "GET /media/local/product/4945463303576.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:08:39] "GET /static/img/payment.png HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/fonts/Cabin/Cabin-Regular.ttf HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+[30/Mar/2020 21:08:39] "GET /static/fonts/Pacifico/Pacifico-Regular.ttf HTTP/1.1" 304 0
+[30/Mar/2020 21:08:45] "GET /userdetail/login/ HTTP/1.1" 200 63612
+[30/Mar/2020 21:08:45] "GET /static/css/userdetail/login.css HTTP/1.1" 304 0
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:08:45] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+[30/Mar/2020 21:09:12] "POST /userdetail/login/ HTTP/1.1" 302 0
+[30/Mar/2020 21:09:12] "GET /userdetail/vendor_profile HTTP/1.1" 301 0
+6
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+[30/Mar/2020 21:09:12] "GET /userdetail/vendor_profile/ HTTP/1.1" 200 86143
+[30/Mar/2020 21:09:12] "GET /static/css/userdetail/seller_profile.css HTTP/1.1" 200 836
+[30/Mar/2020 21:09:12] "GET /static/css/b2b/buisness_profile.css HTTP/1.1" 200 1228
+[30/Mar/2020 21:09:12] "GET /static/css/userdetail/staff_profile.css HTTP/1.1" 200 2474
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:09:13] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+[30/Mar/2020 21:09:13] "GET /static/img/jamie.jpg HTTP/1.1" 200 402129
+[30/Mar/2020 21:09:13] "GET /static/canvas_js/canvas_js.min.js HTTP/1.1" 200 460157
+[30/Mar/2020 21:09:13] "GET /static/js/userdetail/seller_profile.js HTTP/1.1" 200 1905
+[30/Mar/2020 21:09:13] "GET /static/img/pris.jpg HTTP/1.1" 200 2089891
+[30/Mar/2020 21:09:13] "GET /static/img/kelly.jpg HTTP/1.1" 200 170262
+[30/Mar/2020 21:09:13] "GET /static/img/freestock.jpg HTTP/1.1" 200 421241
+[30/Mar/2020 21:09:13] "GET /static/img/andre.jpg HTTP/1.1" 200 886807
+[30/Mar/2020 21:09:13] "GET /static/img/agni.jpg HTTP/1.1" 200 378249
+[30/Mar/2020 21:09:13] "GET /static/img/yunm.jpg HTTP/1.1" 200 438997
+[30/Mar/2020 21:09:13] "GET /static/img/carl.jpg HTTP/1.1" 200 399005
+[30/Mar/2020 21:09:13] "GET /static/img/dmit.jpg HTTP/1.1" 200 379907
+[30/Mar/2020 21:09:13] "GET /static/img/kelly2.jpg HTTP/1.1" 200 129551
+Not Found: /media/local/b2b/logo/12458054110368.png
+[30/Mar/2020 21:09:13] "GET /media/local/b2b/logo/12458054110368.png HTTP/1.1" 404 1864
+[30/Mar/2020 21:09:13] "GET /static/img/msg.png HTTP/1.1" 200 19604
+Not Found: /media/local/b2b/logo/647180120906.pdf
+[30/Mar/2020 21:09:13] "GET /static/img/san.jpg HTTP/1.1" 200 498332
+[30/Mar/2020 21:09:13] "GET /media/local/b2b/logo/647180120906.pdf HTTP/1.1" 404 1858
+[30/Mar/2020 21:09:21] "GET /userdetail/vendor_profile/orders HTTP/1.1" 200 77308
+[30/Mar/2020 21:09:21] "GET /static/css/ HTTP/1.1" 404 1642
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:09:21] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+Not Found: /media/local/b2b/logo/6629614533815.jpg
+[30/Mar/2020 21:09:21] "GET /media/local/b2b/logo/6629614533815.jpg HTTP/1.1" 404 1861
+Not Found: /media/local/b2b/logo/1665806277029.jpeg
+Not Found: /media/local/b2b/logo/647180120906.pdf
+[30/Mar/2020 21:09:21] "GET /media/local/b2b/logo/1665806277029.jpeg HTTP/1.1" 404 1864
+[30/Mar/2020 21:09:21] "GET /media/local/b2b/logo/647180120906.pdf HTTP/1.1" 404 1858
+Not Found: /media/local/b2b/logo/10318879440885.jpg
+Not Found: /media/local/b2b/logo/10080641522725.jpg
+[30/Mar/2020 21:09:22] "GET /media/local/b2b/logo/10318879440885.jpg HTTP/1.1" 404 1864
+[30/Mar/2020 21:09:22] "GET /media/local/b2b/logo/10080641522725.jpg HTTP/1.1" 404 1864
+[30/Mar/2020 21:09:22] "GET /static/css/ HTTP/1.1" 404 1642
+Not Found: /media/local/b2b/logo/6305412465562.jpg
+[30/Mar/2020 21:09:22] "GET /media/local/b2b/logo/6305412465562.jpg HTTP/1.1" 404 1861
+[30/Mar/2020 21:09:22] "GET /static/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 75728
+[30/Mar/2020 21:09:49] "GET /operators/home HTTP/1.1" 200 1622
+[30/Mar/2020 21:09:50] "GET /favicon.ico/ HTTP/1.1" 302 0
+[30/Mar/2020 21:09:50] "GET / HTTP/1.1" 200 72410
+[30/Mar/2020 21:09:58] "GET /static/css/ HTTP/1.1" 404 1642
+[30/Mar/2020 21:10:02] "GET /sew/hello HTTP/1.1" 200 1070
+[30/Mar/2020 21:10:04] "GET /favicon.ico/ HTTP/1.1" 302 0
+[30/Mar/2020 21:10:04] "GET / HTTP/1.1" 200 72410
+[30/Mar/2020 21:10:18] "GET /sew/obgenerate HTTP/1.1" 200 5272
+[30/Mar/2020 21:10:18] "GET /favicon.ico/ HTTP/1.1" 302 0
+[30/Mar/2020 21:10:18] "GET / HTTP/1.1" 200 72410
+[30/Mar/2020 21:15:25] "GET / HTTP/1.1" 200 72911
+[30/Mar/2020 21:15:25] "GET /static/fontawesome/less/fontawesome.less HTTP/1.1" 200 521
+[30/Mar/2020 21:15:25] "GET /static/css/style.css HTTP/1.1" 200 14488
+[30/Mar/2020 21:15:25] "GET /static/fontawesome/scss/fontawesome.scss HTTP/1.1" 200 449
+[30/Mar/2020 21:15:25] "GET /static/fontawesome/css/all.css HTTP/1.1" 200 74946
+[30/Mar/2020 21:15:25] "GET /static/jQuery/jQuery.js HTTP/1.1" 200 290962
+[30/Mar/2020 21:15:25] "GET /static/fontawesome/js/all.js HTTP/1.1" 200 1206441
+[30/Mar/2020 21:15:25] "GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 200 202385
+[30/Mar/2020 21:15:25] "GET /static/js/script.js HTTP/1.1" 200 4242
+[30/Mar/2020 21:15:25] "GET /static/bootstrap/js/bootstrap.js HTTP/1.1" 200 136072
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:15:25] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+Not Found: /media/local/product/8917836107080.jpeg
+[30/Mar/2020 21:15:25] "GET /static/img/banner-03.jpeg HTTP/1.1" 200 44731
+[30/Mar/2020 21:15:25] "GET /media/local/product/8917836107080.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:15:25] "GET /static/img/banner-01.jpeg HTTP/1.1" 200 72420
+Not Found: /media/local/product/7410370106178.jpeg
+Not Found: /media/local/product/7625812771441.jpeg
+[30/Mar/2020 21:15:25] "GET /media/local/product/7410370106178.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/7009986517584.webp
+[30/Mar/2020 21:15:25] "GET /media/local/product/7625812771441.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/10619471810950.jfif
+[30/Mar/2020 21:15:25] "GET /media/local/product/7009986517584.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/4945463303576.jpeg
+[30/Mar/2020 21:15:25] "GET /media/local/product/10619471810950.jfif HTTP/1.1" 404 1864
+[30/Mar/2020 21:15:25] "GET /media/local/product/4945463303576.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:15:25] "GET /static/img/banner-02.jpeg HTTP/1.1" 200 129601
+[30/Mar/2020 21:15:25] "GET /static/img/loader.gif HTTP/1.1" 200 922466
+Not Found: /media/local/product/10608504358317.jpeg
+[30/Mar/2020 21:15:25] "GET /media/local/product/10608504358317.jpeg HTTP/1.1" 404 1864
+[30/Mar/2020 21:15:25] "GET /static/img/payment.png HTTP/1.1" 200 38947
+Not Found: /media/local/product/289050867828.jpeg
+Not Found: /media/local/product/5727618284933.webp
+[30/Mar/2020 21:15:25] "GET /media/local/product/289050867828.jpeg HTTP/1.1" 404 1858
+[30/Mar/2020 21:15:25] "GET /media/local/product/5727618284933.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/11958967216789.jpeg
+[30/Mar/2020 21:15:25] "GET /media/local/product/11958967216789.jpeg HTTP/1.1" 404 1864
+Not Found: /media/local/product/11698353805867.png
+[30/Mar/2020 21:15:25] "GET /media/local/product/11698353805867.png HTTP/1.1" 404 1861
+Not Found: /media/local/product/8917836107080.jpeg
+Not Found: /media/local/product/10608504358317.jpeg
+[30/Mar/2020 21:15:25] "GET /media/local/product/8917836107080.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/7009986517584.webp
+Not Found: /media/local/product/7410370106178.jpeg
+[30/Mar/2020 21:15:25] "GET /media/local/product/10608504358317.jpeg HTTP/1.1" 404 1864
+[30/Mar/2020 21:15:25] "GET /media/local/product/7009986517584.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/289050867828.jpeg
+[30/Mar/2020 21:15:25] "GET /static/fonts/Pacifico/Pacifico-Regular.ttf HTTP/1.1" 200 201432
+Not Found: /media/local/product/5727618284933.webp
+[30/Mar/2020 21:15:25] "GET /media/local/product/7410370106178.jpeg HTTP/1.1" 404 1861
+Not Found: /media/local/product/7625812771441.jpeg
+Not Found: /media/local/product/4945463303576.jpeg
+[30/Mar/2020 21:15:25] "GET /media/local/product/289050867828.jpeg HTTP/1.1" 404 1858
+[30/Mar/2020 21:15:26] "GET /media/local/product/5727618284933.webp HTTP/1.1" 404 1861
+Not Found: /media/local/product/10619471810950.jfif
+[30/Mar/2020 21:15:26] "GET /media/local/product/7625812771441.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:15:26] "GET /media/local/product/4945463303576.jpeg HTTP/1.1" 404 1861
+[30/Mar/2020 21:15:26] "GET /static/fonts/Cabin/Cabin-Regular.ttf HTTP/1.1" 200 93176
+[30/Mar/2020 21:15:26] "GET /media/local/product/10619471810950.jfif HTTP/1.1" 404 1864
+Not Found: /media/local/product/11958967216789.jpeg
+[30/Mar/2020 21:15:26] "GET /media/local/product/11958967216789.jpeg HTTP/1.1" 404 1864
+[30/Mar/2020 21:15:26] "GET /static/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 13584
+[30/Mar/2020 21:15:26] "GET /static/img/favicon.png HTTP/1.1" 200 1163
+[30/Mar/2020 21:15:46] "GET /operators/home HTTP/1.1" 200 1622
+[30/Mar/2020 21:15:54] "GET /operators/login HTTP/1.1" 200 1880
+[30/Mar/2020 21:15:59] "POST /operators/login HTTP/1.1" 200 1919
+[30/Mar/2020 21:16:06] "POST /operators/login HTTP/1.1" 200 1919
+[30/Mar/2020 21:16:12] "GET /operators/home HTTP/1.1" 200 1622
+[30/Mar/2020 21:16:14] "GET /operators/login HTTP/1.1" 200 1880
+[30/Mar/2020 21:16:24] "POST /operators/login HTTP/1.1" 200 1919
+Irshad 001 Shirt 21:17 30/03/2020
+[30/Mar/2020 21:17:16] "POST /operators/login HTTP/1.1" 200 12690

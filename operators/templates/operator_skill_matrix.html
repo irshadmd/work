@@ -112,7 +112,7 @@
                   </td>
                 {% endif %}
               {% endfor %}
-              <td></td>
+              <td>{{ operatorpop|get_item:'dart_stitch' }}</td>
             </tr>
             <tr>
               <th>panel attach</th>
@@ -136,6 +136,7 @@
                   </td>
                 {% endif %}
               {% endfor %}
+              <td>{{ operatorpop|get_item:'panel_attach' }}</td>
             </tr>
             <tr>
               <th>dart and panel pressing</th>
@@ -159,6 +160,7 @@
                   </td>
                 {% endif %}
               {% endfor %}
+              <td>{{ operatorpop|get_item:'dart_and_panel_pressing' }}</td>
             </tr>
             <tr>
               <th>centre back stitch</th>
@@ -182,6 +184,7 @@
                   </td>
                 {% endif %}
               {% endfor %}
+              <td>{{ operatorpop|get_item:'centre_back_stitch' }}</td>
             </tr>
             <tr>
               <th>diamond stitch</th>
@@ -205,6 +208,7 @@
                   </td>
                 {% endif %}
               {% endfor %}
+              <td>{{ operatorpop|get_item:'diamond_stitch' }}</td>
             </tr>
             <tr>
               <th>chest welt iron</th>
@@ -228,6 +232,7 @@
                   </td>
                 {% endif %}
               {% endfor %}
+              <td>{{ operatorpop|get_item:'chest_welt_iron' }}</td>
             </tr>
             <tr>
               <th>chest welt attach</th>
@@ -251,6 +256,7 @@
                   </td>
                 {% endif %}
               {% endfor %}
+              <td>{{ operatorpop|get_item:'chest_welt_attach' }}</td>
             </tr>
             <tr>
               <th>side seam</th>
@@ -274,18 +280,42 @@
                   </td>
                 {% endif %}
               {% endfor %}
+              <td>{{ operatorpop|get_item:'side_seam' }}</td>
             </tr>
         </tbody>
-        <tfoot>
-          <tr>
-            <th>No. of operation per operator</th>
+        <tfoot >
+          <tr style="background-color: #47c19f;">
+            <th style="background-color: #47c19f!important;" >No. of operation per operator</th>
             <td></td>
              {% for operator in operator_list %}
               {% with ope=operator.operation|strtolist %}
                 <td>{{ope|length}}</td>
               {% endwith %}
              {% endfor %}
+             <td> </td>
           </tr>
+        <tr>
+          <th>Required skill level</th>
+          <td> </td>
+          {% for operator in operator_list %}
+              <td>20</td>
+          {% endfor %}
+          <td>{{ operator_list.count|mul }}</td>
+        </tr>
+        <tr>
+          <th>Achieved skill level</th>
+          <td> </td>
+          {% for operator in operator_list %}
+              {% with ope=operator.operation|strtolist %}
+                {% with sk=operator.skill_percentage|strtolist %}
+                  <td>
+                    {{ ope|zip:sk|get_achieved }}
+                  </td>
+                {% endwith %}
+              {% endwith %}
+          {% endfor %}
+          <td>{{achievedskilllevel}}</td>
+        </tr>
         </tfoot>
       </table>
     <input type="submit" name="skillsubmit" value="Assign operator manually" class="btn btn-primary">

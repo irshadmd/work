@@ -681,7 +681,6 @@ def smedreport(request):
     return render(request,'operatorwindowsmedreport.html')
 
 def operatorskillmatrix(request):
-    operator_list=UserProfileInfo.objects.all()
     dart=0
     panel=0
     dartpanelpressing=0
@@ -690,6 +689,197 @@ def operatorskillmatrix(request):
     chestweltiron=0
     chestweltattach=0
     sideseam=0
+    
+    if request.method=='POST' and 'linesubmit' in request.POST:
+        lineno=request.POST['lineno']
+        product=request.POST['product']
+        inpdate=request.POST['date']
+        print(str(inpdate))
+        cdate=str(date.today())
+        if(int(lineno)==1):
+            operator_list=operator_skill_matrix.objects.filter(line_no=1,product_category=product)
+            
+            for operator in operator_list:
+                if 'dart_stitch' in operator.operation:
+                    dart=dart+1
+                elif 'panel_attach' in operator.operation:
+                    panel=panel+1
+                elif 'dart_and_panel_pressing' in operator.operation:
+                    dartpanelpressing=dartpanelpressing+1
+                elif 'centre_back_stitch' in operator.operation:
+                    centrebackstitch=centrebackstitch+1
+                elif 'diamond_stitch' in operator.operation:
+                    diamondstitch=diamondstitch+1
+                elif 'chest_welt_iron' in operator.operation:
+                    chestweltiron=chestweltiron+1
+                elif 'chest_welt_attach' in operator.operation:
+                    chestweltattach=chestweltattach+1
+                elif 'side_seam' in operator.operation:
+                    sideseam=sideseam+1
+            
+            operatorpop = {'dart_stitch':dart, 'panel_attach':panel,'dart_and_panel_pressing':dartpanelpressing
+            ,'centre_back_stitch':centrebackstitch,'diamond_stitch':diamondstitch
+            ,'chest_welt_iron':chestweltiron,'chest_welt_attach':chestweltattach,'side_seam':sideseam}
+
+            operator_list=UserProfileInfo.objects.filter(line_no=1,product_category=product)
+            sumachieve=0
+            for operator in operator_list:
+                ope=strtolistforoperation(operator.operation)
+                sk=strtolistforoperation(operator.skill_percentage)
+                sumachieve=sumachieve+get_achieved(zip(ope,sk))
+            operator_attendences=line1attendence.objects.filter(product=product,date=inpdate)
+            return render(request,'operator_skill_matrix_linewise.html',{'operator_list':operator_list
+            ,'operator_attendences':operator_attendences,'cdate':cdate,'inpdate':inpdate
+            ,'lineno':lineno,'product':product,'operatorpop':operatorpop,'achievedskilllevel':sumachieve})
+        elif(int(lineno)==2):
+            operator_list=operator_skill_matrix.objects.filter(line_no=2,product_category=product)
+            
+            for operator in operator_list:
+                if 'dart_stitch' in operator.operation:
+                    dart=dart+1
+                elif 'panel_attach' in operator.operation:
+                    panel=panel+1
+                elif 'dart_and_panel_pressing' in operator.operation:
+                    dartpanelpressing=dartpanelpressing+1
+                elif 'centre_back_stitch' in operator.operation:
+                    centrebackstitch=centrebackstitch+1
+                elif 'diamond_stitch' in operator.operation:
+                    diamondstitch=diamondstitch+1
+                elif 'chest_welt_iron' in operator.operation:
+                    chestweltiron=chestweltiron+1
+                elif 'chest_welt_attach' in operator.operation:
+                    chestweltattach=chestweltattach+1
+                elif 'side_seam' in operator.operation:
+                    sideseam=sideseam+1
+            
+            operatorpop = {'dart_stitch':dart, 'panel_attach':panel,'dart_and_panel_pressing':dartpanelpressing
+            ,'centre_back_stitch':centrebackstitch,'diamond_stitch':diamondstitch
+            ,'chest_welt_iron':chestweltiron,'chest_welt_attach':chestweltattach,'side_seam':sideseam}
+
+            operator_list=UserProfileInfo.objects.filter(line_no=2,product_category=product)
+            sumachieve=0
+            for operator in operator_list:
+                ope=strtolistforoperation(operator.operation)
+                sk=strtolistforoperation(operator.skill_percentage)
+                sumachieve=sumachieve+get_achieved(zip(ope,sk))
+            operator_attendences=line2attendence.objects.filter(product=product,date=inpdate)
+            return render(request,'operator_skill_matrix_linewise',{'operator_list':operator_list
+            ,'operator_attendences':operator_attendences,'cdate':cdate,'inpdate':inpdate
+            ,'lineno':lineno,'product':product,'operatorpop':operatorpop,'achievedskilllevel':sumachieve})
+        elif(int(lineno)==3):
+            operator_list=operator_skill_matrix.objects.filter(line_no=3,product_category=product)
+            
+            for operator in operator_list:
+                if 'dart_stitch' in operator.operation:
+                    dart=dart+1
+                elif 'panel_attach' in operator.operation:
+                    panel=panel+1
+                elif 'dart_and_panel_pressing' in operator.operation:
+                    dartpanelpressing=dartpanelpressing+1
+                elif 'centre_back_stitch' in operator.operation:
+                    centrebackstitch=centrebackstitch+1
+                elif 'diamond_stitch' in operator.operation:
+                    diamondstitch=diamondstitch+1
+                elif 'chest_welt_iron' in operator.operation:
+                    chestweltiron=chestweltiron+1
+                elif 'chest_welt_attach' in operator.operation:
+                    chestweltattach=chestweltattach+1
+                elif 'side_seam' in operator.operation:
+                    sideseam=sideseam+1
+            
+            operatorpop = {'dart_stitch':dart, 'panel_attach':panel,'dart_and_panel_pressing':dartpanelpressing
+            ,'centre_back_stitch':centrebackstitch,'diamond_stitch':diamondstitch
+            ,'chest_welt_iron':chestweltiron,'chest_welt_attach':chestweltattach,'side_seam':sideseam}
+
+            operator_list=UserProfileInfo.objects.filter(line_no=3,product_category=product)
+            sumachieve=0
+            for operator in operator_list:
+                ope=strtolistforoperation(operator.operation)
+                sk=strtolistforoperation(operator.skill_percentage)
+                sumachieve=sumachieve+get_achieved(zip(ope,sk))
+            operator_attendences=line3attendence.objects.filter(product=product,date=inpdate)
+            return render(request,'operator_skill_matrix_linewise.html',{'operator_list':operator_list
+            ,'operator_attendences':operator_attendences,'cdate':cdate,'inpdate':inpdate
+            ,'lineno':lineno,'product':product,'operatorpop':operatorpop,'achievedskilllevel':sumachieve})
+        elif(int(lineno)==4):
+            operator_list=operator_skill_matrix.objects.filter(line_no=4,product_category=product)
+            
+            for operator in operator_list:
+                if 'dart_stitch' in operator.operation:
+                    dart=dart+1
+                elif 'panel_attach' in operator.operation:
+                    panel=panel+1
+                elif 'dart_and_panel_pressing' in operator.operation:
+                    dartpanelpressing=dartpanelpressing+1
+                elif 'centre_back_stitch' in operator.operation:
+                    centrebackstitch=centrebackstitch+1
+                elif 'diamond_stitch' in operator.operation:
+                    diamondstitch=diamondstitch+1
+                elif 'chest_welt_iron' in operator.operation:
+                    chestweltiron=chestweltiron+1
+                elif 'chest_welt_attach' in operator.operation:
+                    chestweltattach=chestweltattach+1
+                elif 'side_seam' in operator.operation:
+                    sideseam=sideseam+1
+            
+            operatorpop = {'dart_stitch':dart, 'panel_attach':panel,'dart_and_panel_pressing':dartpanelpressing
+            ,'centre_back_stitch':centrebackstitch,'diamond_stitch':diamondstitch
+            ,'chest_welt_iron':chestweltiron,'chest_welt_attach':chestweltattach,'side_seam':sideseam}
+
+            operator_list=UserProfileInfo.objects.filter(line_no=4,product_category=product)
+            sumachieve=0
+            for operator in operator_list:
+                ope=strtolistforoperation(operator.operation)
+                sk=strtolistforoperation(operator.skill_percentage)
+                sumachieve=sumachieve+get_achieved(zip(ope,sk))
+            operator_attendences=line4attendence.objects.filter(product=product,date=inpdate)
+            return render(request,'operator_skill_matrix_linewise.html',{'operator_list':operator_list
+            ,'operator_attendences':operator_attendences,'cdate':cdate,'inpdate':inpdate
+            ,'lineno':lineno,'product':product,'operatorpop':operatorpop,'achievedskilllevel':sumachieve})
+        elif(int(lineno)==5):
+            operator_list=operator_skill_matrix.objects.filter(line_no=5,product_category=product)
+            
+            for operator in operator_list:
+                if 'dart_stitch' in operator.operation:
+                    dart=dart+1
+                elif 'panel_attach' in operator.operation:
+                    panel=panel+1
+                elif 'dart_and_panel_pressing' in operator.operation:
+                    dartpanelpressing=dartpanelpressing+1
+                elif 'centre_back_stitch' in operator.operation:
+                    centrebackstitch=centrebackstitch+1
+                elif 'diamond_stitch' in operator.operation:
+                    diamondstitch=diamondstitch+1
+                elif 'chest_welt_iron' in operator.operation:
+                    chestweltiron=chestweltiron+1
+                elif 'chest_welt_attach' in operator.operation:
+                    chestweltattach=chestweltattach+1
+                elif 'side_seam' in operator.operation:
+                    sideseam=sideseam+1
+            
+            operatorpop = {'dart_stitch':dart, 'panel_attach':panel,'dart_and_panel_pressing':dartpanelpressing
+            ,'centre_back_stitch':centrebackstitch,'diamond_stitch':diamondstitch
+            ,'chest_welt_iron':chestweltiron,'chest_welt_attach':chestweltattach,'side_seam':sideseam}
+
+            operator_list=UserProfileInfo.objects.filter(line_no=5,product_category=product)
+            sumachieve=0
+            for operator in operator_list:
+                ope=strtolistforoperation(operator.operation)
+                sk=strtolistforoperation(operator.skill_percentage)
+                sumachieve=sumachieve+get_achieved(zip(ope,sk))
+
+            operator_attendences=line5attendence.objects.filter(product=product,date=inpdate)
+            return render(request,'operator_skill_matrix_linewise.html',{'operator_list':operator_list
+            ,'operator_attendences':operator_attendences,'cdate':cdate,'inpdate':inpdate
+            ,'lineno':lineno,'product':product,'operatorpop':operatorpop,'achievedskilllevel':sumachieve})
+    if request.method=='POST' and 'skillsubmit' in request.POST:
+        operators=UserProfileInfo.objects.all()
+        for i,val in enumerate(operators):
+            skill=request.POST.getlist(val.operator_id)
+            print(skill,i)
+    
+    cdate=str(date.today())
+    operator_list=operator_skill_matrix.objects.all()
     for operator in operator_list:
         if 'dart_stitch' in operator.operation:
             dart=dart+1
@@ -712,53 +902,16 @@ def operatorskillmatrix(request):
     ,'centre_back_stitch':centrebackstitch,'diamond_stitch':diamondstitch
     ,'chest_welt_iron':chestweltiron,'chest_welt_attach':chestweltattach,'side_seam':sideseam}
 
-    if request.method=='POST' and 'linesubmit' in request.POST:
-        lineno=request.POST['lineno']
-        product=request.POST['product']
-        inpdate=request.POST['date']
-        print(str(inpdate))
-        cdate=str(date.today())
-        if(int(lineno)==1):
-            operator_list=UserProfileInfo.objects.filter(line_no=1,product_category=product)
-            operator_attendences=line1attendence.objects.filter(product=product,date=inpdate)
-            return render(request,'operator_skill_matrix_linewise.html',{'operator_list':operator_list
-            ,'operator_attendences':operator_attendences,'cdate':cdate,'inpdate':inpdate
-            ,'lineno':lineno,'product':product})
-        elif(int(lineno)==2):
-            operator_list=UserProfileInfo.objects.filter(line_no=2,product_category=product)
-            operator_attendences=line2attendence.objects.filter(product=product,date=inpdate)
-            return render(request,'operator_skill_matrix_linewise',{'operator_list':operator_list
-            ,'operator_attendences':operator_attendences,'cdate':cdate,'inpdate':inpdate
-            ,'lineno':lineno,'product':product})
-        elif(int(lineno)==3):
-            operator_list=UserProfileInfo.objects.filter(line_no=3,product_category=product)
-            operator_attendences=line3attendence.objects.filter(product=product,date=inpdate)
-            return render(request,'operator_skill_matrix_linewise.html',{'operator_list':operator_list
-            ,'operator_attendences':operator_attendences,'cdate':cdate,'inpdate':inpdate
-            ,'lineno':lineno,'product':product})
-        elif(int(lineno)==4):
-            operator_list=UserProfileInfo.objects.filter(line_no=4,product_category=product)
-            operator_attendences=line4attendence.objects.filter(product=product,date=inpdate)
-            return render(request,'operator_skill_matrix_linewise.html',{'operator_list':operator_list
-            ,'operator_attendences':operator_attendences,'cdate':cdate,'inpdate':inpdate
-            ,'lineno':lineno,'product':product})
-        elif(int(lineno)==5):
-            operator_list=UserProfileInfo.objects.filter(line_no=5,product_category=product)
-            operator_attendences=line5attendence.objects.filter(product=product,date=inpdate)
-            return render(request,'operator_skill_matrix_linewise.html',{'operator_list':operator_list
-            ,'operator_attendences':operator_attendences,'cdate':cdate,'inpdate':inpdate
-            ,'lineno':lineno,'product':product})
-    if request.method=='POST' and 'skillsubmit' in request.POST:
-        operators=UserProfileInfo.objects.all()
-        for i,val in enumerate(operators):
-            skill=request.POST.getlist(val.operator_id)
-            print(skill,i)
-    
-    cdate=str(date.today())
     operator_list=UserProfileInfo.objects.all()
-    
+     
+    sumachieve=0
+    for operator in operator_list:
+        ope=strtolistforoperation(operator.operation)
+        sk=strtolistforoperation(operator.skill_percentage)
+        sumachieve=sumachieve+get_achieved(zip(ope,sk))
+
     return render(request,'operator_skill_matrix.html',{'operator_list':operator_list
-    ,'cdate':cdate,'operatorpop':operatorpop})
+    ,'cdate':cdate,'operatorpop':operatorpop,'achievedskilllevel':sumachieve})
 
 def takeattendence(request):
     today = str(date.today())
@@ -1040,11 +1193,35 @@ def listToString(s):
 def strtolist(s):
     return list(s.split("-"))
 
+def strtolistforoperation(s):
+    return list(s.split(","))
+
 def dateFormat(s):
     li = list(s.split("-")) 
     li.reverse()
     str2="/"
     return (str2.join(li)) 
+
+def get_achieved(oplist):
+    achieve=0
+    for a,b in oplist:
+        if a == 'dart_stitch':
+            achieve=achieve+((int(b)*4)/100)
+        elif a=='panel_attach':
+            achieve=achieve+((int(b)*3)/100)
+        elif a=='dart_and_panel_pressing':
+            achieve=achieve+((int(b)*5)/100)
+        elif a=='centre_back_stitch':
+            achieve=achieve+((int(b)*2)/100)
+        elif a=='diamond_stitch':
+            achieve=achieve+((int(b)*3)/100)
+        elif a=='chest_welt_iron':
+            achieve=achieve+((int(b)*1)/100)
+        elif a=='chest_welt_attach':
+            achieve=achieve+((int(b)*4)/100)
+        elif a=='side_seam':
+            achieve=achieve+((int(b)*3)/100)
+    return achieve
     
 def operationbulletin(request):
     if request.method=='POST' :

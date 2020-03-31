@@ -75,7 +75,7 @@
         <tbody>
             <tr>
               <th>dart stitch</th>
-              <td> </td>
+              <td>4</td>
               {% for operator in operator_list %}
                 {% if 'dart_stitch' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -90,7 +90,6 @@
                                   <td style="background-color: red;color: white">{{b}}</td>
                                 {% else %}
                                   <td>{{b}}</td>
-                                  {{ counter.increment }}
                                 {% endif %}
                               {% endif %}
                             {% empty %}
@@ -104,11 +103,11 @@
                   <td></td>
                 {% endif %}
               {% endfor %}
-              <td>{{ counter.count }}</td>
+              <td>{{ operatorpop|get_item:'dart_stitch' }}</td>
             </tr>
             <tr>
               <th>panel attach</th>
-              <td> </td>
+              <td>3</td>
               {% for operator in operator_list %}
                 {% if 'panel_attach' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -123,7 +122,6 @@
                                   <td style="background-color: red;color: white">{{b}}</td>
                                 {% else %}
                                   <td>{{b}}</td>
-                                  {{ counter.increment }}
                                 {% endif %}
                               {% endif %}
                             {% empty %}
@@ -137,11 +135,11 @@
                   <td></td>
                 {% endif %}
               {% endfor %}
-              <td>{{ counter.count }}</td>
+              <td>{{ operatorpop|get_item:'panel_attach' }}</td>
             </tr>
             <tr>
               <th>dart and panel pressing</th>
-              <td> </td>
+              <td>5</td>
               {% for operator in operator_list %}
                 {% if 'dart_and_panel_pressing' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -156,7 +154,6 @@
                                   <td style="background-color: red;color: white">{{b}}</td>
                                 {% else %}
                                   <td>{{b}}</td>
-                                  {{ counter.increment }}
                                 {% endif %}
                               {% endif %}
                             {% empty %}
@@ -170,11 +167,11 @@
                   <td></td>
                 {% endif %}
               {% endfor %}
-              <td>{{ counter.count }}</td>
+              <td>{{ operatorpop|get_item:'dart_and_panel_pressing' }}</td>
             </tr>
             <tr>
               <th>centre back stitch</th>
-              <td> </td>
+              <td>2</td>
               {% for operator in operator_list %}
                 {% if 'centre_back_stitch' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -189,7 +186,6 @@
                                   <td style="background-color: red;color: white">{{b}}</td>
                                 {% else %}
                                   <td>{{b}}</td>
-                                  {{ counter.increment }}
                                 {% endif %}
                               {% endif %}
                             {% empty %}
@@ -203,11 +199,11 @@
                   <td></td>
                 {% endif %}
               {% endfor %}
-              <td>{{ counter.count }}</td>
+              <td>{{ operatorpop|get_item:'centre_back_stitch' }}</td>
             </tr>
             <tr>
               <th>diamond stitch</th>
-              <td> </td>
+              <td>3</td>
               {% for operator in operator_list %}
                 {% if 'diamond_stitch' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -222,7 +218,6 @@
                                   <td style="background-color: red;color: white">{{b}}</td>
                                 {% else %}
                                   <td>{{b}}</td>
-                                  {{ counter.increment }}
                                 {% endif %}
                               {% endif %}
                             {% empty %}
@@ -236,11 +231,11 @@
                   <td></td>
                 {% endif %}
               {% endfor %}
-              <td>{{ counter.count }}</td>
+              <td>{{ operatorpop|get_item:'diamond_stitch' }}</td>
             </tr>
             <tr>
               <th>chest welt iron</th>
-              <td> </td>
+              <td>1</td>
               {% for operator in operator_list %}
                 {% if 'chest_welt_iron' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -255,7 +250,6 @@
                                   <td style="background-color: red;color: white">{{b}}</td>
                                 {% else %}
                                   <td>{{b}}</td>
-                                  {{ counter.increment }}
                                 {% endif %}
                               {% endif %}
                             {% empty %}
@@ -269,11 +263,11 @@
                   <td></td>
                 {% endif %}
               {% endfor %}
-              <td>{{ counter.count }}</td>
+              <td>{{ operatorpop|get_item:'chest_welt_iron' }}</td>
             </tr>
             <tr>
               <th>chest welt attach</th>
-              <td> </td>
+              <td>4</td>
               {% for operator in operator_list %}
                 {% if 'chest_welt_attach' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -288,7 +282,6 @@
                                   <td style="background-color: red;color: white">{{b}}</td>
                                 {% else %}
                                   <td>{{b}}</td>
-                                  {{ counter.increment }}
                                 {% endif %}
                               {% endif %}
                             {% empty %}
@@ -302,11 +295,11 @@
                   <td></td>
                 {% endif %}
               {% endfor %}
-              <td>{{ counter.count }}</td>
+              <td>{{ operatorpop|get_item:'chest_welt_attach' }}</td>
             </tr>
             <tr>
               <th>side seam</th>
-              <td> </td>
+              <td>3</td>
               {% for operator in operator_list %}
                 {% if 'side_seam' in operator.operation %}
                   {% with ope=operator.operation|strtolist %}
@@ -321,7 +314,6 @@
                                   <td style="background-color: red;color: white">{{b}}</td>
                                 {% else %}
                                   <td>{{b}}</td>
-                                  {{ counter.increment }}
                                 {% endif %}
                               {% endif %}
                             {% empty %}
@@ -335,19 +327,42 @@
                   <td></td>
                 {% endif %}
               {% endfor %}
-              <td>{{ counter.count }}</td>
+              <td>{{ operatorpop|get_item:'side_seam' }}</td>
             </tr>
         </tbody>
         <tfoot>
-          <tr>
-            <th>No. of operation per operator</th>
+          <tr style="background-color: #47c19f;">
+            <th style="background-color: #47c19f!important;" >No. of operation per operator</th>
             <td></td>
              {% for operator in operator_list %}
               {% with ope=operator.operation|strtolist %}
                 <td>{{ope|length}}</td>
               {% endwith %}
              {% endfor %}
+             <td> </td>
           </tr>
+          <tr>
+          <th>Required skill level</th>
+          <td> </td>
+          {% for operator in operator_list %}
+              <td>20</td>
+          {% endfor %}
+          <td>{{ operator_list.count|mul }}</td>
+        </tr>
+        <tr>
+          <th>Achieved skill level</th>
+          <td> </td>
+          {% for operator in operator_list %}
+              {% with ope=operator.operation|strtolist %}
+                {% with sk=operator.skill_percentage|strtolist %}
+                  <td>
+                    {{ ope|zip:sk|get_achieved }}
+                  </td>
+                {% endwith %}
+              {% endwith %}
+          {% endfor %}
+          <td>{{achievedskilllevel}}</td>
+        </tr>
         </tfoot>
       </table>
     </div>
