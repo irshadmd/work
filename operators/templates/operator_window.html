@@ -104,9 +104,7 @@
             
           </tr>
         </tbody>
-          <td><input type="submit" class="btn btn-primary saveticket" value="Save" name="saveticket">
-            <input type="number" name="saveticketcount" value="{{saveticketcount}}"  style="text-align: center; width: 50px;" readonly>
-          </td>
+          <td><input type="submit" class="btn btn-primary" value="Save" name="saveticket"></td>
       </table>
     </div>
   </div>
@@ -155,7 +153,9 @@
             <th>Cutting Missing ticket No.</th>
             <th></th>
             <td>{{totalpcs}}</td>
-            <td>{{qualitylosstime}}</td>
+            <td>
+              <input type="number" name="qualitylosstime" value="{{qualitylosstime}}" readonly>
+            </td>
             <td>{{coq}}</td>
           </tr>
           <tr>
@@ -181,9 +181,7 @@
             <td></td>
           </tr>
         </tbody>
-        <td><input type="submit" class="btn btn-primary" value="Save" name="saverework">
-          <input type="number" name="savereworkcount" value="{{savereworkcount}}" style="text-align: center; width: 50px;" readonly>
-        </td>
+        <td><input type="submit" class="btn btn-primary" value="Save" name="saverework"></td>
       </table>
     </div>
   </div>
@@ -400,7 +398,7 @@
             <th>Total Loss Time</th>
           </tr>
           <tr>
-            <td>96.90</td>
+            <td>{{totallosstime}}</td>
           </tr>
         </thead>
       </table>

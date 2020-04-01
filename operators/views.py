@@ -93,17 +93,19 @@ def user_login(request):
             others=0
             delaystart=0
             demo=0
+            machinelosstime=0
+            colosstime=0
+            waitinglosstime=0
+            qualitylosstime=0
             learing=0
             fullswing=0
-            saveticketcount=0
-            savereworkcount=0
             return render(request, 'operator_window.html', {'name':name,'id':id,'product':product,'time':time,'date':date,'lineno':lineno
                 ,'total_pieces':total_pieces,'rework_pieces':rework_pieces,'daily_repair':daily_repair
                 ,'daily_finish_return':daily_finish_return,'daily_cut_defect':daily_cut_defect,'dailycuttingmiss':dailycuttingmiss
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing
-                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'machinelosstime':machinelosstime,'colosstime':colosstime,
+                'waitinglosstime':waitinglosstime,'qualitylosstime':qualitylosstime})
         else:
             register='You have to register than you can login'
             return render(request, 'op_login.html', {'registerfirst':register})
@@ -118,7 +120,9 @@ def window(request):
         start_time=request.POST['optime']
         hr = str(datetime.datetime.now().hour)
         min = str(datetime.datetime.now().minute)
-        stop_time=hr+':'+min
+        
+        stop_time=hr+":"+min
+
         date=request.POST['opdate']
         total_pieces=request.POST['hourlyachieved']
         rework_pieces=request.POST['reworkpieces']
@@ -139,29 +143,33 @@ def window(request):
         demo=request.POST['demo']
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
-        saveticketcount=request.POST['saveticketcount']
-        savereworkcount=request.POST['savereworkcount']
+        qualitylosstime=request.POST['qualitylosstime']
+        waitinglosstime=12.8
+        machinelosstime=request.POST['machinelosstime']
+        colosstime=request.POST['colosstime']
+
+
         maintenancename=""
         maintenanceval=0
         if maintenance == "dw0.5":
             maintenancename="Displace/Waiting"
-            maintenanceval=(float(maintenance[2:]))*8
+            maintenanceval=0
             displace=float(displace)+float(maintenanceval)
         elif maintenance == "se1":
             maintenancename="Setting"
-            maintenanceval=(float(maintenance[2:]))*8
+            maintenanceval=0
             setting=float(setting)+float(maintenanceval)
         elif maintenance == "br2":
             maintenancename="Breakdown"
-            maintenanceval=(float(maintenance[2:]))*8
+            maintenanceval=0
             breakdown=float(breakdown)+float(maintenanceval)
         elif maintenance == "pf1":
             maintenancename="Power failure"
-            maintenanceval=(float(maintenance[2:]))*8
+            maintenanceval=0
             powerfailure=float(powerfailure)+float(maintenanceval)
 
         machinelosstime=float(displace)+float(setting)+float(breakdown)+float(powerfailure)
-
+        totallosstime=float(qualitylosstime)+float(waitinglosstime)+float(machinelosstime)+float(colosstime)
         print(maintenance,maintenanceval,maintenancename)
         window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
             ,date=date,maintenance_name=maintenancename,maintenance_value=maintenanceval
@@ -187,17 +195,15 @@ def window(request):
                 ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure,'machinelosstime':machinelosstime
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing
-                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'totallosstime':totallosstime,'colosstime':colosstime,
+                'waitinglosstime':waitinglosstime,'qualitylosstime':qualitylosstime})
     if request.method=='POST' and 'machinestart' in request.POST:
         operator_id =request.POST['opid']
         operator_name =request.POST['opname']
         operation=request.POST['operation']
         start_time=request.POST['optime']
-        hr = str(datetime.datetime.now().hour)
-        min = str(datetime.datetime.now().minute)
-        stop_time=hr+':'+min
         date=request.POST['opdate']
+        
         total_pieces=request.POST['hourlyachieved']
         rework_pieces=request.POST['reworkpieces']
         daily_repair=request.POST['dailyrepair']
@@ -218,15 +224,52 @@ def window(request):
         demo=request.POST['demo']
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
-        saveticketcount=request.POST['saveticketcount']
-        savereworkcount=request.POST['savereworkcount']
+
+        qualitylosstime=request.POST['qualitylosstime']
+        waitinglosstime=12.8
+        machinelosstime=request.POST['machinelosstime']
+        colosstime=request.POST['colosstime']
+
+
         
+        hr = str(datetime.datetime.now().hour)
+        min = str(datetime.datetime.now().minute)
+        h=int(hr) #converted hour in h
+        m=int(min)
+        start_time=hr+":"+min
+        maintenancename=""
+        x=OperatorWindow.objects.filter(operator_id=operator_id,date=date)
+        for i in x:
+            st=i.maintenance_stop_time 
+            idd=i.id
+            maintenancename=i.maintenance_name
+
+        
+        t=strtolistfortime(st)
+        hr1=t[0] #hour
+        min1=t[1] #min
+        hh=h-int(hr1)
+        mm=m-int(min1)
+        #value=str(hh)+":"+str(mm)
+        value=(hh*60)+mm
+        if maintenancename=='Displace/Waiting':
+            displace=value
+        elif maintenancename=='Setting':
+            setting=value
+        elif maintenancename=='Breakdown':
+            breakdown=value
+        elif maintenancename=='Power failure':
+            powerfailure=value
+
+
         machinelosstime=float(displace)+float(setting)+float(breakdown)+float(powerfailure)
+        totallosstime=float(qualitylosstime)+float(waitinglosstime)+float(machinelosstime)+float(colosstime)
 
-        window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
-            ,date=date,maintenance_start_time=start_time)
+       # window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
+       #     ,date=date,maintenance_start_time=start_time,maintenance_time=value,maintenance_name=maintenancename)
+        window_info=OperatorWindow(operator_id=operator_id,id=idd,operator_name=operator_name,operation=operation,date=date,maintenance_stop_time=st, maintenance_start_time=start_time,maintenance_time=value,maintenance_name=maintenancename)
         window_info.save()                
-
+        
         result=UserProfileInfo.objects.filter(operator_id=operator_id)
         if result:
             for i in result:
@@ -246,8 +289,8 @@ def window(request):
                 ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure,'machinelosstime':machinelosstime
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing
-                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'totallosstime':totallosstime,'colosstime':colosstime,
+                'waitinglosstime':waitinglosstime,'qualitylosstime':qualitylosstime})
     if request.method=='POST' and 'saverework' in request.POST:
         operator_id =request.POST['opid']
         operator_name =request.POST['opname']
@@ -279,8 +322,13 @@ def window(request):
         demo=request.POST['demo']
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
-        saveticketcount=request.POST['saveticketcount']
-        savereworkcount=request.POST['savereworkcount']
+
+        qualitylosstime=request.POST['qualitylosstime']
+        waitinglosstime=12.8
+        machinelosstime=request.POST['machinelosstime']
+        colosstime=request.POST['colosstime']
+
+
 
         cutmissdefectno_list=strtolist(cutmissdefectno)
         dailycuttingmiss=(int(cutmissdefectno_list[1])-int(cutmissdefectno_list[0]))+1
@@ -296,15 +344,13 @@ def window(request):
         totalpcs=int(rwp)+int(daily_repair)+int(daily_finish_return)+int(daily_cut_defect)+int(dailycutting_miss)
         qualitylosstime=int(rwp)*1+int(daily_repair)*1+int(daily_finish_return)*2+int(daily_cut_defect)*1+int(dailycutting_miss)*1.5
         coq=qualitylosstime*3
-
-        savereworkcount=int(savereworkcount)+1
-
         window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name
             ,operation=operation,date=date,rework_ticket_no=selfreworktktno,repair_tkt_no=repairtktno
             ,finishreturn_tkt_no=finishreturntktno,cutdefect_no=cutdefectno,cutmiss_tkt_no=cutmissdefectno
             ,rework_pieces=rwp,daily_cutting_miss=dailycuttingmiss)
         window_info.save() 
 
+        totallosstime=float(qualitylosstime)+float(waitinglosstime)+float(machinelosstime)+float(colosstime)
         result=UserProfileInfo.objects.filter(operator_id=operator_id)
         if result:
             for i in result:
@@ -324,8 +370,8 @@ def window(request):
                 ,'daily_repair':daily_repair,'qualitylosstime':qualitylosstime
                 ,'totalpcs':totalpcs,'coq':coq,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing
-                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'totallosstime':totallosstime,'machinelosstime':machinelosstime,'colosstime':colosstime,
+                'waitinglosstime':waitinglosstime})
     if request.method=='POST' and 'saveticket' in request.POST:
         operator_id =request.POST['opid']
         date=request.POST['opdate']
@@ -354,8 +400,12 @@ def window(request):
         demo=request.POST['demo']
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
-        saveticketcount=request.POST['saveticketcount']
-        savereworkcount=request.POST['savereworkcount']
+        qualitylosstime=request.POST['qualitylosstime']
+        waitinglosstime=12.8
+        machinelosstime=request.POST['machinelosstime']
+        colosstime=request.POST['colosstime']
+
+
 
         stitp=int(stitp)
         total_pieces=(int(ticket_no_end)-int(ticket_no_start))+1
@@ -363,11 +413,11 @@ def window(request):
         wip=int(nextoperation)-int(ticket_no_end)
         efficiency=(stitp*0.8)/450
         performance=(stitp*0.8)/(450-96.90)
-        saveticketcount=int(saveticketcount)+1
         window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
             ,ticket_no_start=ticket_no_start,date=date
             ,ticket_no_end=ticket_no_end,total_pieces=stitp,next_operation=nextoperation,wip=wip)
         window_info.save()
+        totallosstime=float(qualitylosstime)+float(waitinglosstime)+float(machinelosstime)+float(colosstime)
 
         result=UserProfileInfo.objects.filter(operator_id=operator_id)
         if result:
@@ -387,8 +437,8 @@ def window(request):
                 ,'daily_finish_return':daily_finish_return,'daily_cut_defect':daily_cut_defect,'dailycuttingmiss':dailycuttingmiss
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing
-                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount}) 
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'totallosstime':totallosstime,'machinelosstime':machinelosstime,'colosstime':colosstime,
+                'waitinglosstime':waitinglosstime,'qualitylosstime':qualitylosstime}) 
 
     if request.method=='POST' and 'costop' in request.POST:
         operator_id =request.POST['opid']
@@ -418,51 +468,55 @@ def window(request):
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
         smed=request.POST['smed']
-        saveticketcount=request.POST['saveticketcount']
-        savereworkcount=request.POST['savereworkcount']
+        qualitylosstime=request.POST['qualitylosstime']
+        waitinglosstime=12.8
+        machinelosstime=request.POST['machinelosstime']
+        colosstime=request.POST['colosstime']
+
+
 
 
         smedname=""
         smedval=0
         if smed == "mi0.1":
             smedname="Machine Issue"
-            smedval=(float(smed[2:]))*2
+            smedval=0
             machineissue=float(machineissue)+float(smedval)
         elif smed == "qi0.1":
             smedname="Quality Issue"
-            smedval=(float(smed[2:]))*2
+            smedval=0
             qualityissue=float(qualityissue)+float(smedval)
         elif smed == "ti0.05":
             smedname="Trims Issue"
-            smedval=(float(smed[2:]))*2
+            smedval=0
             trimsissue=float(trimsissue)+float(smedval)
         elif smed == "ot0.05":
             smedname="Others"
-            smedval=(float(smed[2:]))*2
+            smedval=0
             others=float(others)+float(smedval)
-        elif smed == "ds0.05":
+        elif smed == "ds5.00":
             smedname="Delay Start"
-            smedval=(float(smed[2:]))*2
+            smedval=0
             delaystart=float(delaystart)+float(smedval)
-        elif smed == "de0.05":
+        elif smed == "de5.00":
             smedname="Demo"
-            smedval=(float(smed[2:]))*3
+            smedval=0
             demo=float(demo)+float(smedval)
         elif smed == "le10.00":
             smedname="Learing"
-            smedval=(float(smed[2:]))*0.5
+            smedval=0
             learing=float(learing)+float(smedval)
         elif smed == "fs0.00":
             smedname="Full Swing"
-            smedval=float(smed[2:])
+            smedval=0
             fullswing=float(fullswing)+float(smedval)
 
         colosstime=float(machineissue)+float(qualityissue)+float(trimsissue)+float(others)+float(delaystart)+float(demo)+float(learing)+float(fullswing)
+        totallosstime=float(qualitylosstime)+float(waitinglosstime)+float(machinelosstime)+float(colosstime)
 
         print(smed,smedval,smedname)
         window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
-            ,date=date,smed_start_time=start_time,smed_stop_time=stop_time,smed_name=smedname
-            ,smed_value=smedval)
+            ,date=date,smed_stop_time=stop_time,smed_name=smedname,smed_value=smedval)
         window_info.save()                
 
         result=UserProfileInfo.objects.filter(operator_id=operator_id)
@@ -484,17 +538,33 @@ def window(request):
                 ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime
-                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime,'totallosstime':totallosstime,
+                'machinelosstime':machinelosstime,
+                'waitinglosstime':waitinglosstime,'qualitylosstime':qualitylosstime})
     if request.method=='POST' and 'costart' in request.POST:
         operator_id =request.POST['opid']
         operator_name =request.POST['opname']
         operation=request.POST['operation']
         start_time=request.POST['optime']
+        date=request.POST['opdate']
         hr = str(datetime.datetime.now().hour)
         min = str(datetime.datetime.now().minute)
-        stop_time=hr+':'+min
-        date=request.POST['opdate']
+        h=int(hr) #converted hour in h
+        m=int(min)
+        start_time=hr+":"+min
+        x=OperatorWindow.objects.filter(operator_id=operator_id,date=date)
+        for i in x:
+            st=i.smed_stop_time 
+            idd=i.id
+            smedname=i.smed_name
+        
+        t=strtolistfortime(st)
+        hr1=t[0] #hour
+        min1=t[1] #min
+        hh=h-int(hr1)
+        mm=m-int(min1)
+        #value=str(hh)+":"+str(mm)
+        value=(hh*60)+mm
         total_pieces=request.POST['hourlyachieved']
         rework_pieces=request.POST['reworkpieces']
         daily_repair=request.POST['dailyrepair']
@@ -513,15 +583,36 @@ def window(request):
         demo=request.POST['demo']
         learing=request.POST['learing']
         fullswing=request.POST['fullswing']
-        saveticketcount=request.POST['saveticketcount']
-        savereworkcount=request.POST['savereworkcount']
+        qualitylosstime=request.POST['qualitylosstime']
+        waitinglosstime=12.8
+        machinelosstime=request.POST['machinelosstime']
+        colosstime=request.POST['colosstime']
 
-        colosstime=machineissue+qualityissue+trimsissue+others+delaystart+demo+learing+fullswing
 
-        print(smed,smedval,smedname)
-        window_info=OperatorWindow(operator_id=operator_id,operator_name=operator_name,operation=operation
-            ,date=date,smed_start_time=start_time,smed_stop_time=stop_time,smed_name=smedname
-            ,smed_value=smedval)
+        if smedname=="Machine Issue":
+            machineissue=value
+        elif smedname=="Quality Issue":
+            qualityissue=value
+        elif smedname=="Trims Issue":
+            trimsissue=value
+        elif smedname=="Others":
+            others=value
+        elif smedname=="Delay Start":
+            delaystart=value
+        elif smedname=="Demo":
+            demo=value
+        elif smedname=="Learing":
+            learing=value
+        elif smedname=="Full Swing":
+            fullswing=value
+
+
+        colosstime=float(machineissue)+float(qualityissue)+float(trimsissue)+float(others)+float(delaystart)+float(demo)+float(learing)+float(fullswing)
+        totallosstime=float(qualitylosstime)+float(waitinglosstime)+float(machinelosstime)+float(colosstime)
+
+        #print(smed,smedval,smedname)
+        window_info=OperatorWindow(operator_id=operator_id,id=idd,operator_name=operator_name,operation=operation
+            ,date=date,smed_start_time=start_time,smed_value=value,smed_name=smedname,smed_stop_time=st)
         window_info.save()                
 
         result=UserProfileInfo.objects.filter(operator_id=operator_id)
@@ -543,8 +634,9 @@ def window(request):
                 ,'daily_finish_return':daily_finish_return,'daily_repair':daily_repair
                 ,'displace':displace,'setting':setting,'breakdown':breakdown,'powerfailure':powerfailure
                 ,'machineissue':machineissue,'qualityissue':qualityissue,'trimsissue':trimsissue,'others':others
-                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime
-                ,'saveticketcount':saveticketcount,'savereworkcount':savereworkcount})
+                ,'delaystart':delaystart,'demo':demo,'learing':learing,'fullswing':fullswing,'colosstime':colosstime,'totallosstime':totallosstime,
+                'machinelosstime':machinelosstime,
+                'waitinglosstime':waitinglosstime,'qualitylosstime':qualitylosstime})
 
     total_pieces=0
     rework_pieces=0
@@ -623,13 +715,13 @@ def maintenancereport(request):
         powerfailure=0
         for i in reports:
             if i.maintenance_name=='Displace/Waiting':
-                displace=displace+float(i.maintenance_value)
+                displace=displace+convert(i.maintenance_time)
             elif i.maintenance_name=='Breakdown':
-                breakdown=breakdown+float(i.maintenance_value)
+                breakdown=breakdown+convert(i.maintenance_time)
             elif i.maintenance_name=='Setting':
-                setting=setting+float(i.maintenance_value)
+                setting=setting+convert(i.maintenance_time)
             elif i.maintenance_name=='Power failure':
-                powerfailure=powerfailure+float(i.maintenance_value)
+                powerfailure=powerfailure+convert(i.maintenance_time)
 
         machinelosstime=displace+breakdown+setting+powerfailure
 
@@ -656,21 +748,21 @@ def smedreport(request):
         fullswing=0
         for i in reports:
             if i.smed_name=='Machine Issue':
-                machineissue=machineissue+float(i.smed_value)
+                machineissue=machineissue+convert(i.smed_value)
             elif i.smed_name=='Quality Issue':
-                qualityissue=qualityissue+float(i.smed_value)
+                qualityissue=qualityissue+convert(i.smed_value)
             elif i.smed_name=='Trims Issue':
-                trimsissue=trimsissue+float(i.smed_value)
+                trimsissue=trimsissue+convert(i.smed_value)
             elif i.smed_name=='Others':
-                others=others+float(i.smed_value)
+                others=others+convert(i.smed_value)
             elif i.smed_name=='Delay Start':
-                delaystart=delaystart+float(i.smed_value)
+                delaystart=delaystart+convert(i.smed_value)
             elif i.smed_name=='Demo':
-                demo=demo+float(i.smed_value)
+                demo=demo+convert(i.smed_value)
             elif i.smed_name=='Learing':
-                learing=learing+float(i.smed_value)
+                learing=learing+convert(i.smed_value)
             elif i.smed_name=='Full Swing':
-                fullswing=fullswing+float(i.smed_value)
+                fullswing=fullswing+convert(i.smed_value)
 
         colosstime=machineissue+qualityissue+trimsissue+others+delaystart+demo+learing+fullswing
 
@@ -1193,6 +1285,14 @@ def listToString(s):
 def strtolist(s):
     return list(s.split("-"))
 
+def convert(stt):
+    x=int(stt)
+    print(x)
+    return x
+
+def strtolistfortime(s):
+    return list(s.split(":"))
+
 def strtolistforoperation(s):
     return list(s.split(","))
 
@@ -1293,27 +1393,251 @@ def operationbulletin(request):
                 return render(request,'operationbulletin.html',{'operator_attendences':operator_attendences,'lineno':lineno,'inpdate':inpdate
                 ,'product':product,'dart_list':dart_list,'panel_list':panel_list,'sideseam_list':sideseam_list,'mode':mode})
             elif(int(lineno)==2):
-                operator_list=operator_skill_matrix.objects.filter(line_no=2,product_category=product)
                 operator_attendences=line2attendence.objects.filter(product=product,attendence='present',date=inpdate)
-                return render(request,'operationbulletin',{'operator_list':operator_list
-                ,'operator_attendences':operator_attendences,'inpdate':inpdate
-                ,'lineno':lineno,'product':product})
+                
+                operator_list_dart=operator_skill_matrix.objects.filter(line_no=2,product_category=product
+                    ,operation='dart_stitch')
+                first=0
+                second=0
+                for operators in operator_list_dart:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_dart1=operator_skill_matrix.objects.filter(line_no=2,product_category=product
+                    ,operation='dart_stitch',skill_percentage=first)
+                operator_list_dart2=operator_skill_matrix.objects.filter(line_no=2,product_category=product
+                    ,operation='dart_stitch',skill_percentage=second)
+                dart_list = list(chain(operator_list_dart1, operator_list_dart2))
+                print(dart_list)
+
+                operator_list_panel=operator_skill_matrix.objects.filter(line_no=2,product_category=product
+                    ,operation='panel_attach')
+                first=0
+                second=0
+                for operators in operator_list_panel:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_panel1=operator_skill_matrix.objects.filter(line_no=2,product_category=product
+                    ,operation='panel_attach',skill_percentage=first)
+                operator_list_panel2=operator_skill_matrix.objects.filter(line_no=2,product_category=product
+                    ,operation='panel_attach',skill_percentage=second)
+                panel_list = list(chain(operator_list_panel1, operator_list_panel2))
+                print(panel_list)
+
+                operator_list_sideseam=operator_skill_matrix.objects.filter(line_no=2,product_category=product
+                    ,operation='side_seam')
+                first=0
+                second=0
+                for operators in operator_list_sideseam:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_sideseam1=operator_skill_matrix.objects.filter(line_no=2,product_category=product
+                    ,operation='side_seam',skill_percentage=first)
+                operator_list_sideseam2=operator_skill_matrix.objects.filter(line_no=2,product_category=product
+                    ,operation='side_seam',skill_percentage=second)
+                sideseam_list = list(chain(operator_list_sideseam1, operator_list_sideseam2))
+                print(sideseam_list)
+
+                return render(request,'operationbulletin.html',{'operator_attendences':operator_attendences,'lineno':lineno,'inpdate':inpdate
+                ,'product':product,'dart_list':dart_list,'panel_list':panel_list,'sideseam_list':sideseam_list,'mode':mode})
             elif(int(lineno)==3):
-                operator_list=operator_skill_matrix.objects.filter(line_no=3,product_category=product)
                 operator_attendences=line3attendence.objects.filter(product=product,attendence='present',date=inpdate)
-                return render(request,'operationbulletin.html',{'operator_list':operator_list
-                ,'operator_attendences':operator_attendences,'inpdate':inpdate
-                ,'lineno':lineno,'product':product})
+                
+                operator_list_dart=operator_skill_matrix.objects.filter(line_no=3,product_category=product
+                    ,operation='dart_stitch')
+                first=0
+                second=0
+                for operators in operator_list_dart:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_dart1=operator_skill_matrix.objects.filter(line_no=3,product_category=product
+                    ,operation='dart_stitch',skill_percentage=first)
+                operator_list_dart2=operator_skill_matrix.objects.filter(line_no=3,product_category=product
+                    ,operation='dart_stitch',skill_percentage=second)
+                dart_list = list(chain(operator_list_dart1, operator_list_dart2))
+                print(dart_list)
+
+                operator_list_panel=operator_skill_matrix.objects.filter(line_no=3,product_category=product
+                    ,operation='panel_attach')
+                first=0
+                second=0
+                for operators in operator_list_panel:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_panel1=operator_skill_matrix.objects.filter(line_no=3,product_category=product
+                    ,operation='panel_attach',skill_percentage=first)
+                operator_list_panel2=operator_skill_matrix.objects.filter(line_no=3,product_category=product
+                    ,operation='panel_attach',skill_percentage=second)
+                panel_list = list(chain(operator_list_panel1, operator_list_panel2))
+                print(panel_list)
+
+                operator_list_sideseam=operator_skill_matrix.objects.filter(line_no=3,product_category=product
+                    ,operation='side_seam')
+                first=0
+                second=0
+                for operators in operator_list_sideseam:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_sideseam1=operator_skill_matrix.objects.filter(line_no=3,product_category=product
+                    ,operation='side_seam',skill_percentage=first)
+                operator_list_sideseam2=operator_skill_matrix.objects.filter(line_no=3,product_category=product
+                    ,operation='side_seam',skill_percentage=second)
+                sideseam_list = list(chain(operator_list_sideseam1, operator_list_sideseam2))
+                print(sideseam_list)
+
+                return render(request,'operationbulletin.html',{'operator_attendences':operator_attendences,'lineno':lineno,'inpdate':inpdate
+                ,'product':product,'dart_list':dart_list,'panel_list':panel_list,'sideseam_list':sideseam_list,'mode':mode})
             elif(int(lineno)==4):
-                operator_list=operator_skill_matrix.objects.filter(line_no=4,product_category=product)
                 operator_attendences=line4attendence.objects.filter(product=product,attendence='present',date=inpdate)
-                return render(request,'operationbulletin.html',{'operator_list':operator_list
-                ,'operator_attendences':operator_attendences,'inpdate':inpdate
-                ,'lineno':lineno,'product':product})
+                
+                operator_list_dart=operator_skill_matrix.objects.filter(line_no=4,product_category=product
+                    ,operation='dart_stitch')
+                first=0
+                second=0
+                for operators in operator_list_dart:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_dart1=operator_skill_matrix.objects.filter(line_no=4,product_category=product
+                    ,operation='dart_stitch',skill_percentage=first)
+                operator_list_dart2=operator_skill_matrix.objects.filter(line_no=4,product_category=product
+                    ,operation='dart_stitch',skill_percentage=second)
+                dart_list = list(chain(operator_list_dart1, operator_list_dart2))
+                print(dart_list)
+
+                operator_list_panel=operator_skill_matrix.objects.filter(line_no=4,product_category=product
+                    ,operation='panel_attach')
+                first=0
+                second=0
+                for operators in operator_list_panel:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_panel1=operator_skill_matrix.objects.filter(line_no=4,product_category=product
+                    ,operation='panel_attach',skill_percentage=first)
+                operator_list_panel2=operator_skill_matrix.objects.filter(line_no=4,product_category=product
+                    ,operation='panel_attach',skill_percentage=second)
+                panel_list = list(chain(operator_list_panel1, operator_list_panel2))
+                print(panel_list)
+
+                operator_list_sideseam=operator_skill_matrix.objects.filter(line_no=4,product_category=product
+                    ,operation='side_seam')
+                first=0
+                second=0
+                for operators in operator_list_sideseam:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_sideseam1=operator_skill_matrix.objects.filter(line_no=4,product_category=product
+                    ,operation='side_seam',skill_percentage=first)
+                operator_list_sideseam2=operator_skill_matrix.objects.filter(line_no=4,product_category=product
+                    ,operation='side_seam',skill_percentage=second)
+                sideseam_list = list(chain(operator_list_sideseam1, operator_list_sideseam2))
+                print(sideseam_list)
+
+                return render(request,'operationbulletin.html',{'operator_attendences':operator_attendences,'lineno':lineno,'inpdate':inpdate
+                ,'product':product,'dart_list':dart_list,'panel_list':panel_list,'sideseam_list':sideseam_list,'mode':mode})
             elif(int(lineno)==5):
-                operator_list=operator_skill_matrix.objects.filter(line_no=5,product_category=product)
                 operator_attendences=line5attendence.objects.filter(product=product,attendence='present',date=inpdate)
-                return render(request,'operationbulletin.html',{'operator_list':operator_list
-                ,'operator_attendences':operator_attendences,'inpdate':inpdate
-                ,'lineno':lineno,'product':product})
+                
+                operator_list_dart=operator_skill_matrix.objects.filter(line_no=5,product_category=product
+                    ,operation='dart_stitch')
+                first=0
+                second=0
+                for operators in operator_list_dart:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_dart1=operator_skill_matrix.objects.filter(line_no=5,product_category=product
+                    ,operation='dart_stitch',skill_percentage=first)
+                operator_list_dart2=operator_skill_matrix.objects.filter(line_no=5,product_category=product
+                    ,operation='dart_stitch',skill_percentage=second)
+                dart_list = list(chain(operator_list_dart1, operator_list_dart2))
+                print(dart_list)
+
+                operator_list_panel=operator_skill_matrix.objects.filter(line_no=5,product_category=product
+                    ,operation='panel_attach')
+                first=0
+                second=0
+                for operators in operator_list_panel:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_panel1=operator_skill_matrix.objects.filter(line_no=5,product_category=product
+                    ,operation='panel_attach',skill_percentage=first)
+                operator_list_panel2=operator_skill_matrix.objects.filter(line_no=5,product_category=product
+                    ,operation='panel_attach',skill_percentage=second)
+                panel_list = list(chain(operator_list_panel1, operator_list_panel2))
+                print(panel_list)
+
+                operator_list_sideseam=operator_skill_matrix.objects.filter(line_no=5,product_category=product
+                    ,operation='side_seam')
+                first=0
+                second=0
+                for operators in operator_list_sideseam:
+                    for opattend in operator_attendences:
+                        if operators.operator_id==opattend.operator_id:
+                            if second<=int(operators.skill_percentage):
+                                second=int(operators.skill_percentage)
+                                if first<second:
+                                    first,second=second,first
+                                    print(first,second)
+                operator_list_sideseam1=operator_skill_matrix.objects.filter(line_no=5,product_category=product
+                    ,operation='side_seam',skill_percentage=first)
+                operator_list_sideseam2=operator_skill_matrix.objects.filter(line_no=5,product_category=product
+                    ,operation='side_seam',skill_percentage=second)
+                sideseam_list = list(chain(operator_list_sideseam1, operator_list_sideseam2))
+                print(sideseam_list)
+
+                return render(request,'operationbulletin.html',{'operator_attendences':operator_attendences,'lineno':lineno,'inpdate':inpdate
+                ,'product':product,'dart_list':dart_list,'panel_list':panel_list,'sideseam_list':sideseam_list,'mode':mode})
     return render(request,'operationbulletin.html')    

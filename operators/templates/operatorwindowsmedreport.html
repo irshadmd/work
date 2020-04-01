@@ -135,11 +135,16 @@
                       <th>Demo</th>
                       <th>Learing</th>
                       <th>Full Swing</th>
+                      <th>Smed Start</th>
+                      <th>Smed Stop</th>
                     </tr>   
                   </thead>
                   <tbody style="background-color: green;color: white">
                     {% for i in reports %}
-                          <tr>
+                         {% if i.smed_name == "" %}
+                         
+                         {% else %}
+                            <tr>
                             <td>{{forloop.counter}}</td>
                             {% if i.smed_name == 'Machine Issue' %}
                               <td>{{ i.smed_value }}</td>
@@ -150,6 +155,8 @@
                               <td></td>
                               <td></td>
                               <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
                             {% endif %}
                             {% if i.smed_name == 'Quality Issue' %}
                               <td></td>
@@ -160,6 +167,8 @@
                               <td></td>
                               <td></td>
                               <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
                             {% endif %}
                             {% if i.smed_name == 'Trims Issue' %}
                               <td></td>
@@ -170,6 +179,8 @@
                               <td></td>
                               <td></td>
                               <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
                             {% endif %}
                             {% if i.smed_name == 'Others' %}
                               <td></td>
@@ -180,6 +191,8 @@
                               <td></td>
                               <td></td>
                               <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
                             {% endif %}
                             {% if i.smed_name == 'Delay Start' %}
                               <td></td>
@@ -190,7 +203,8 @@
                               <td></td>
                               <td></td>
                               <td></td>
-                              <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
                             {% endif %}
                             {% if i.smed_name == 'Demo' %}
                               <td></td>
@@ -201,6 +215,8 @@
                               <td>{{ i.smed_value }}</td>
                               <td></td>
                               <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
                             {% endif %}
                             {% if i.smed_name == 'Learing' %}
                               <td></td>
@@ -211,6 +227,8 @@
                               <td></td>
                               <td>{{ i.smed_value }}</td>
                               <td></td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
                             {% endif %}
                             {% if i.smed_name == 'Full Swing' %}
                               <td></td>
@@ -221,8 +239,12 @@
                               <td></td>
                               <td></td>
                               <td>{{ i.smed_value }}</td>
+                              <td>{{i.smed_stop_time}}</td>
+                              <td>{{i.smed_start_time}}</td>
                             {% endif %}
-                          </tr>
+                          </tr>  
+                         {% endif %}
+                          
                     {% endfor %}
                   </tbody>
                 </table>

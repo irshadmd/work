@@ -119,6 +119,8 @@
                       <th>Setting</th>
                       <th>Breakdown</th>
                       <th>Power Failure</th>
+                      <th>Maint strt</th>
+                      <th>Maint stop</th>
                     </tr>   
                   </thead>
                   <tbody style="background-color: green;color: white">
@@ -126,28 +128,36 @@
                           <tr>
                             <td>{{forloop.counter}}</td>
                             {% if i.maintenance_name == 'Displace/Waiting' %}
-                              <td>{{ i.maintenance_value }}</td>
+                              <td>{{ i.maintenance_time }}</td>
                               <td></td>
                               <td></td>
                               <td></td>
+                              <td>{{i.maintenance_start_time}}</td>
+                              <td>{{i.maintenance_stop_time}}</td>
                             {% endif %}
                             {% if i.maintenance_name == 'Setting' %}
                               <td></td>
-                              <td>{{ i.maintenance_value }}</td>
+                              <td>{{ i.maintenance_time }}</td>
                               <td></td>
                               <td></td>
+                              <td>{{i.maintenance_start_time}}</td>
+                              <td>{{i.maintenance_stop_time}}</td>
                             {% endif %}
                             {% if i.maintenance_name == 'Breakdown' %}
                               <td></td>
                               <td></td>
-                              <td>{{ i.maintenance_value }}</td>
+                              <td>{{ i.maintenance_time }}</td>
                               <td></td>
+                              <td>{{i.maintenance_start_time}}</td>
+                              <td>{{i.maintenance_stop_time}}</td>
                             {% endif %}
                             {% if i.maintenance_name == 'Power failure' %}
                               <td></td>
                               <td></td>
                               <td></td>
-                              <td>{{ i.maintenance_value }}</td>
+                              <td>{{ i.maintenance_time }}</td>
+                              <td>{{i.maintenance_start_time}}</td>
+                              <td>{{i.maintenance_stop_time}}</td>
                             {% endif %}
                           </tr>
                     {% endfor %}

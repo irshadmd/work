@@ -42,12 +42,13 @@ class OperatorWindow(models.Model):
     daily_cutting_miss=models.IntegerField(default=0)
     maintenance_start_time=models.CharField(max_length=50,default='')
     maintenance_stop_time=models.CharField(max_length=50,default='')
+    maintenance_time=models.IntegerField(default=0)
     maintenance_name=models.CharField(max_length=50,default='')
     maintenance_value=models.CharField(max_length=50,default='')
     smed_start_time=models.CharField(max_length=50,default='')
     smed_stop_time=models.CharField(max_length=50,default='')
     smed_name=models.CharField(max_length=50,default='')
-    smed_value=models.CharField(max_length=50,default='')
+    smed_value=models.IntegerField(default=0)
 
     def __str__(self):
         return self.operator_name
